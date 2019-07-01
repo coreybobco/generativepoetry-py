@@ -5,8 +5,7 @@ import hunspell
 from wordfreq import word_frequency
 from datamuse import datamuse
 
-connectors = [' ', '... ', ' and ', ' or \n  ']
-ws_connectors = [' ', '   ', '\n    ', ' --> ', '...   ', ' & ', '  or  ']
+connectors = [' ', '   ', '\n    ', '\n        ', ' --> ', '...   ', ' & ', '  or  ']
 line_enders = ['.', ', ', '!', '?']
 
 def validate_str(input):
@@ -61,10 +60,10 @@ def random_rhymeburst(word):
     else:
         return random_rhyme(word)
 
-def phonetic_burst(word, sample_size=6):
+def phonetic_burst(word, sample_size=None):
     word_list = rhymes(word, sample_size=4)
     word_list.extend(w for w in similar_sounding_words(word, sample_size=5) if w not in word_list) #why is there overlap
-    if sample_size - 1 < len(word_list):
+    if sample_size and sample_size - 1 < len(word_list):
         word_list = random.sample(word_list, k=sample_size - 1)
     return word_list
 
@@ -76,24 +75,24 @@ def poem_from_word_list(input_word_list, lines=5, mix_bursts=True): #push out la
             word_list.extend(phonetic_burst(word))
         for i in range(lines):
             random.shuffle(word_list)
-            output += poem_line_from_word_list(word_list, original_word=word) + '\n'
-        return output
-    for word in input_word_list:
-        output += poem_line_from_word_list(phonetic_burst(word), original_word=word) + '\n'
+            output += poem_line_from_word_list(word_list) + '\n'
+    else:
+        for word in input_word_list:
+            output += poem_line_from_word_list(phonetic_burst(word), original_word=word) + '\n'
+    output += random.choice(input_word_list[:-1]) + ' ' + input_word_list[-1]
     return output
 
-def poem_line_from_word_list(word_list, original_word=None, max_line_length=34):
+def poem_line_from_word_list(word_list, max_line_length=34):
     output = word_list[0]
     for w in word_list[1:]:
         connector, last_connector = None, None
         # Assumption - no repeat connector
         while connector is None or connector == last_connector:
-            connector = random.choice(ws_connectors) if last_connector != '\n  ' else  '\n         '
+            connector = random.choice(ws_connectors) if last_connector != '\n    ' else '\n         '
         output += random.choice(ws_connectors) + w
         last_connector = connector
         if len(output) >= max_line_length:
             break
-    output += ' ' + original_word if original_word else ' ' + {word_list[-1]}
     output += random.choice(line_enders)
     return output
 
