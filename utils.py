@@ -108,12 +108,12 @@ def phonetically_related_words(input, sample_size=None):
         validate_str_list(input, msg='Must provide a string or list of strings')
         input_words = input
     else:
-        import ipdb; ipdb.set_trace()
         raise ValueError('Must provide a string or list of strings')
 
+    pr_words = []
     for word in input_words:
-        pr_words = rhymes(word, sample_size=4)
-        pr_words.extend(w for w in similar_sounding_words(word, sample_size=5) if w not in pr_words)  # eliminate overlap
+        pr_words.extend(rhymes(word, sample_size=sample_size))
+        pr_words.extend(w for w in similar_sounding_words(word, sample_size=sample_size) if w not in pr_words)  # eliminate overlap
         if sample_size and sample_size - 1 < len(pr_words):
             pr_words = random.sample(pr_words, k=sample_size - 1)
     return pr_words
@@ -124,8 +124,10 @@ def poem_line_from_word_list(word_list, max_line_length=35):
     if random.random() > .5:
         connectors.append(' -> ')
     output = word_list[0]
-    connector, last_connector = None, None
+    last_word, connector, last_connector = None, None, None
     for w in word_list[1:]:
+        if w == last_word:
+            continue
         # Assumption - no repeat connector
         while connector is None or connector == last_connector:
             connector = random.choice(connectors) if last_connector != '\n    ' else '\n         '
@@ -138,7 +140,7 @@ def poem_line_from_word_list(word_list, max_line_length=35):
     return output
 
 
-def poem_from_word_list(input_word_list, lines=5, mix_bursts=True): #push out last 3 words in deque
+def poem_from_word_list(input_word_list, lines=5, mix_bursts=True):  # push out last 3 words in deque
     output = ''
     if mix_bursts:
         word_list = input_word_list.copy()

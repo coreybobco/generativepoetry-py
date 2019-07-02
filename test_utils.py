@@ -79,13 +79,20 @@ class TestUtils(unittest.TestCase):
                                       'summoning', 'synonym']  # Using this to save API call in test
         self.assertIn(similar_sounding_word('homonym'), all_similar_sounding_words)
 
-    def test_phonetically_related_word_list(self):
-        self.assertRaises(ValueError, lambda: validate_str_list(2))
-        self.assertRaises(ValueError, lambda: validate_str_list(2.5))
-        self.assertRaises(ValueError, lambda: validate_str_list(False))
-        self.assertRaises(ValueError, lambda: validate_str_list(None))
-        self.assertRaises(ValueError, lambda: validate_str_list(['a', 'b', None]))
-        # W I P
+    def test_phonetically_related_words(self):
+        self.assertRaises(ValueError, lambda: phonetically_related_words(2))
+        self.assertRaises(ValueError, lambda: phonetically_related_words(2.5))
+        self.assertRaises(ValueError, lambda: phonetically_related_words(False))
+        self.assertRaises(ValueError, lambda: phonetically_related_words(None))
+        self.assertRaises(ValueError, lambda: phonetically_related_words(['a', 'b', None]))
+        expected_pr_words = ['inchoate', 'payout', 'pet', 'peyote', 'pit', 'poached', 'poet', 'poets', 'poked',
+                             'post', 'putt']  # for input 'poet'
+        self.assertEqual(sorted(phonetically_related_words('poet', sample_size=None)), expected_pr_words)
+        results = phonetically_related_words('poet', sample_size=5)
+        self.assertEqual(len(sorted(results)), 5)
+        self.assertTrue(set(sorted(expected_pr_words)).issuperset(set(results)))
+        expected_pr_words = sorted(expected_pr_words + ['eon', 'gnawing', 'kneeing', 'naan', 'neon', 'non', 'noun'])
+        self.assertEqual(sorted(phonetically_related_words(['poet', 'neon'], sample_size=None)), expected_pr_words)
 
     def test_poem_line_from_word_list(self):
         pass
