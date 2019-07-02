@@ -21,10 +21,10 @@ laced kept crypts  or  corrupt...   toast?
 embossed & most...   corrupt  or  ripped!
 riposte...   glossed
         lawsuit!
-toast --> tame
+toast -> tame
     groped & team
         kept.
-lawsuit --> glossed cast toast
+lawsuit -> glossed cast toast
         rhyme.
 ghost time
 ```
