@@ -26,6 +26,16 @@ class TestUtils(unittest.TestCase):
         self.assertTrue(has_invalid_characters("apostrophe'"))
         self.assertFalse(has_invalid_characters('espousal'))
 
+
+    def test_too_similar(self):
+        self.assertFalse(too_similar(None, 25.2))
+        self.assertFalse(too_similar('string', 25))
+        self.assertFalse(too_similar(list(), 'beans'))
+        self.assertFalse(too_similar('self', 'other'))
+        self.assertTrue(too_similar('dog', 'dog'))
+        self.assertTrue(too_similar('dog', 'dogs'))
+        self.assertTrue(too_similar('dogs', 'dog'))
+
     def test_filter_word(self):
         self.assertFalse(filter_word('an'))
         self.assertFalse(filter_word('nonexistentword'))
@@ -95,7 +105,29 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(sorted(phonetically_related_words(['poet', 'neon'], sample_size=None)), expected_pr_words)
 
     def test_poem_line_from_word_list(self):
-        pass
+        input_word_list = ['crypt', 'crypts', 'crypt', 'ghost', 'ghosts', 'lost', 'time', 'times']
+        possible_connectors = [',', '...', '&', 'and', 'or', '->']
+        possible_line_enders = ['.', ',', '!', '?', '...']
+        pr_words = phonetically_related_words(input_word_list)
+        possible_words = pr_words.copy()
+        for line_ender in line_enders:
+            for word in pr_words:
+                # Since we are testing using .split(), the list of possible words should include f'{word + line ender}'
+                possible_words.append(word + line_ender)
+        for i in range(3):
+            poem_line = poem_line_from_word_list(input_word_list)
+            # First character of line should not be a space as indents are handled by the poem_from_word_list function
+            self.assertNotEqual(poem_line[0], ' ')
+            # Should not have newlines as these are handled by the poem_from_word_list function
+            self.assertNotIn('\n', poem_line)
+            # When split, everything should derive from the possible word list
+            self.assertTrue(set(possible_words + possible_connectors).issuperset(set(poem_line.split())))
+            word, last_word = None, None
+            for i in range(len(poem_line.split())):
+                word = re.match(r'[a-zA-Z]*', '...').group()
+                #  No word should be too similar to the preceding word
+                self.assertFalse(too_similar(word, last_word))
+                last_word = word
 
     def test_poem_from_word_list(self):
         pass

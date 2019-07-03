@@ -5,7 +5,9 @@ import hunspell
 from wordfreq import word_frequency
 from datamuse import datamuse
 
-line_enders = ['.', ', ', '!', '?']
+default_connectors = [' ', '   ', '...   ', random.choice([' & ', ' and ']), '  or  ', ' or ']
+line_enders = ['.', ', ', '!', '?', '', ' or', '...']
+line_indents = ['', '    ', '         ']
 word_frequency_threshold = 4e-08
 
 
@@ -30,6 +32,15 @@ def validate_word(string):
     validate_str(string)
     if has_invalid_characters(string):
         raise ValueError('Word may not contain digits, spaces, or special characters.')
+
+def too_similar(word1, word2):
+    if not isinstance(word1, str) or not isinstance(word2, str) or len(word1) == 0 or len(word2) == 0:
+        return False
+    if word1 == word2:
+        return True
+    if word1 + 's' == word2 or word2 + 's' == word1:
+        return True
+    return False
 
 def filter_word(string):
     validate_str(string)
@@ -115,42 +126,44 @@ def phonetically_related_words(input, sample_size=None):
         pr_words.extend(rhymes(word, sample_size=sample_size))
         pr_words.extend(w for w in similar_sounding_words(word, sample_size=sample_size) if w not in pr_words)  # eliminate overlap
         if sample_size and sample_size - 1 < len(pr_words):
-            pr_words = random.sample(pr_words, k=sample_size - 1)
+            pr_words = random.sample(pr_words, k=sample_size)
     return pr_words
 
 
-def poem_line_from_word_list(word_list, max_line_length=35):
-    connectors = [' ', '   ', '\n    ', '\n        ', '...   ', random.choice([' & ', ' and ']), '  or  ', ' or ']
-    if random.random() > .5:
-        connectors.append(' -> ')
-    output = word_list[0]
-    last_word, connector, last_connector = None, None, None
-    for w in word_list[1:]:
-        if w == last_word:
+def poem_line_from_word_list(word_list, max_line_length=35, connectors=default_connectors):
+    output, last_word = word_list[0], word_list[0]
+    connector, last_connector = None, None
+    for word in word_list[1:]:
+        if random.random() < (.2 + len(output)/100):  # Increasing probability of line termination as line gets longer
+            break
+        if too_similar(last_word, word):
             continue
-        # Assumption - no repeat connector
-        while connector is None or connector == last_connector:
-            connector = random.choice(connectors) if last_connector != '\n    ' else '\n         '
-        output += random.choice(connectors) + w
+        connector_choices = [conn for conn in connectors if conn != last_connector]
+        output += random.choice(connector_choices) + word
         last_connector = connector
-        last_word = w
+        last_word = word
         if len(output) >= max_line_length:
             break
-    output += random.choice(line_enders)
     return output
 
 
 def poem_from_word_list(input_word_list, lines=5, mix_bursts=True):  # push out last 3 words in deque
-    output = ''
+    connectors = [' ', '   ', '...   ', random.choice([' & ', ' and ']), '  or  ', ' or ']
+    if random.random() > .7:
+        connectors.append(' -> ')
+    output, line_indent = '', ''
     if mix_bursts:
         word_list = input_word_list.copy()
         for word in input_word_list:
             word_list.extend(phonetically_related_words(word))
         for i in range(lines):
             random.shuffle(word_list)
-            output += poem_line_from_word_list(word_list) + '\n'
+            output += poem_line_from_word_list(word_list, connectors=connectors)
+            line_indent = random.choice(line_indents) if line_indent == '' else \
+                random.choice([li for li in line_indents if li is not line_indent])   # Don't repeat the same indent 2x
+            output += random.choice(line_enders) + '\n'+ line_indent
     else:
         for word in input_word_list:
-            output += poem_line_from_word_list(phonetically_related_words(word), original_word=word) + '\n'
+            output += poem_line_from_word_list(phonetically_related_words(word), connectors=connectors) + '\n'
     output += random.choice(input_word_list[:-1]) + ' ' + input_word_list[-1]
     return output
