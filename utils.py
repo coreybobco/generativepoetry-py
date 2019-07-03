@@ -147,23 +147,29 @@ def poem_line_from_word_list(word_list, max_line_length=35, connectors=default_c
     return output
 
 
-def poem_from_word_list(input_word_list, lines=5, mix_bursts=True):  # push out last 3 words in deque
+def poem_from_word_list(input_word_list, lines=6, link_line_to_input_word=False):
     connectors = [' ', '   ', '...   ', random.choice([' & ', ' and ']), '  or  ', ' or ']
     if random.random() > .7:
         connectors.append(' -> ')
     output, line_indent = '', ''
-    if mix_bursts:
+    if link_line_to_input_word:
+        # Only use the phonetically related words for one input word to generate a poem line
+        for i in range(lines - 1):
+            linked_word = random.choice(input_word_list)
+            output += poem_line_from_word_list(phonetically_related_words(linked_word), connectors=connectors)
+            line_indent = random.choice(line_indents) if line_indent == '' else \
+                random.choice([li for li in line_indents if li is not line_indent])  # Don't repeat the same indent 2x
+            output += random.choice(line_enders) + '\n' + line_indent
+    else:
         word_list = input_word_list.copy()
         for word in input_word_list:
             word_list.extend(phonetically_related_words(word))
-        for i in range(lines):
+        for i in range(lines - 1):
             random.shuffle(word_list)
             output += poem_line_from_word_list(word_list, connectors=connectors)
             line_indent = random.choice(line_indents) if line_indent == '' else \
                 random.choice([li for li in line_indents if li is not line_indent])   # Don't repeat the same indent 2x
             output += random.choice(line_enders) + '\n'+ line_indent
-    else:
-        for word in input_word_list:
-            output += poem_line_from_word_list(phonetically_related_words(word), connectors=connectors) + '\n'
+
     output += random.choice(input_word_list[:-1]) + ' ' + input_word_list[-1]
     return output

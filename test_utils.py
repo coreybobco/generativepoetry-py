@@ -104,17 +104,20 @@ class TestUtils(unittest.TestCase):
         expected_pr_words = sorted(expected_pr_words + ['eon', 'gnawing', 'kneeing', 'naan', 'neon', 'non', 'noun'])
         self.assertEqual(sorted(phonetically_related_words(['poet', 'neon'], sample_size=None)), expected_pr_words)
 
-    def test_poem_line_from_word_list(self):
-        input_word_list = ['crypt', 'crypts', 'crypt', 'ghost', 'ghosts', 'lost', 'time', 'times']
-        possible_connectors = [',', '...', '&', 'and', 'or', '->']
+    def get_possible_word_list(self, input_word_list):
         possible_line_enders = ['.', ',', '!', '?', '...']
-        pr_words = phonetically_related_words(input_word_list)
-        possible_words = pr_words.copy()
-        for line_ender in line_enders:
-            for word in pr_words:
+        possible_words = input_word_list.copy()
+        for line_ender in possible_line_enders:
+            for word in input_word_list:
                 # Since we are testing using .split(), the list of possible words should include f'{word + line ender}'
                 possible_words.append(word + line_ender)
-        for i in range(3):
+        return possible_words
+
+    def test_poem_line_from_word_list(self):
+        input_word_list = ['crypt', 'crypts', 'crypt', 'ghost', 'ghosts', 'lost', 'time', 'times']
+        possible_words = self.get_possible_word_list(input_word_list)
+        possible_connectors = [',', '...', '&', 'and', 'or', '->']
+        for i in range(5):
             poem_line = poem_line_from_word_list(input_word_list)
             # First character of line should not be a space as indents are handled by the poem_from_word_list function
             self.assertNotEqual(poem_line[0], ' ')
@@ -129,8 +132,26 @@ class TestUtils(unittest.TestCase):
                 self.assertFalse(too_similar(word, last_word))
                 last_word = word
 
+
     def test_poem_from_word_list(self):
-        pass
+        input_word_list = ['crypt', 'sleep', 'ghost', 'time']
+        poems = [poem_from_word_list(input_word_list, link_line_to_input_word=True),
+                 poem_from_word_list(input_word_list, lines=8)]
+        expected_newlines_in_poem = [5, 7]
+
+        for i, poem in enumerate(poems):
+            self.assertEqual(poem.count('\n'), expected_newlines_in_poem[i])  # 5 lines = 5 newline characters since one ends the poem
+            poem_lines = poem.split('\n')
+            for string in poem_lines:
+                indent_length = len(string) - len(string.lstrip())
+                if indent_length != 0:
+                    # Indent length should not repeat... unless there's no indent
+                    self.assertNotEqual(indent_length, last_indent_length)
+                last_indent_length = indent_length
+            last_line_words = [word for word in poem_lines[-1].split(' ') if word != '']
+            self.assertEqual(len(last_line_words), 2)
+            self.assertIn(last_line_words[0], input_word_list[:-1])
+            self.assertEqual(last_line_words[1], 'time')
 
 
 if __name__ == '__main__':
