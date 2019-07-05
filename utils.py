@@ -5,6 +5,8 @@ import hunspell
 from wordfreq import word_frequency
 from datamuse import datamuse
 
+api = datamuse.Datamuse()
+hobj = hunspell.HunSpell('/usr/share/hunspell/en_US.dic', '/usr/share/hunspell/en_US.aff')
 default_connectors = [' ', '   ', '...   ', random.choice([' & ', ' and ']), '  or  ', ' or ']
 line_enders = ['.', ', ', '!', '?', '', ' or', '...']
 line_indents = ['', '    ', '         ']
@@ -63,7 +65,6 @@ def filter_word_list_quick(word_list):
 
 
 def filter_word_list_spellcheck(word_list):
-    hobj = hunspell.HunSpell('/usr/share/hunspell/en_US.dic', '/usr/share/hunspell/en_US.aff')
     return list(
         filter(lambda word: hobj.spell(word), word_list)
     )
@@ -86,7 +87,6 @@ def rhyme(word):
 
 def similar_sounding_words(input_word, sample_size=6, datamuse_api_max=48):
     validate_word(input_word)
-    api = datamuse.Datamuse()
     response = api.words(sl=input_word, max=datamuse_api_max)
     word_list = filter_word_list_quick([obj['word'] for obj in response])
     if not sample_size or len(word_list) <= sample_size:
@@ -104,6 +104,10 @@ def similar_sounding_words(input_word, sample_size=6, datamuse_api_max=48):
         if sample_size < len(similar_sounding_words):
             return random.sample(similar_sounding_words, k=sample_size)
         return similar_sounding_words
+
+def similar_meaning_words(input_word, sample_size=6, datamuse_api_max=12):
+    response = api.words(ml=input_word, max=datamuse_api_max)
+    word_list = filter_word_list_quick([obj['word'] for obj in response])
 
 
 def similar_sounding_word(input_word, datamuse_api_max=15):
@@ -124,7 +128,8 @@ def phonetically_related_words(input, sample_size=None):
     pr_words = []
     for word in input_words:
         pr_words.extend(rhymes(word, sample_size=sample_size))
-        pr_words.extend(w for w in similar_sounding_words(word, sample_size=sample_size) if w not in pr_words)  # eliminate overlap
+        pr_words.extend(w for w in similar_sounding_words(word, sample_size=sample_size)
+                        if w not in pr_words)  # eliminate overlap
         if sample_size and sample_size - 1 < len(pr_words):
             pr_words = random.sample(pr_words, k=sample_size)
     return pr_words
