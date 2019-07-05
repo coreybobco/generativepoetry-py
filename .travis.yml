@@ -2,7 +2,7 @@ language: python
 python:
   - "3.6"
   - "3.7"
-dist: xenial
+dist: bionic
 
 before_install:
   - sudo apt-get update && sudo apt install -y libhunspell-dev hunspell-en-us 
