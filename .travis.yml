@@ -6,7 +6,7 @@ python:
 dist: xenial
 
 before_install:
-- apt install -y libhunspell-dev
+  - sudo apt install -y libhunspell-dev
 
 script:
-- python3 test_utils.py
+  - python3 test_utils.py
