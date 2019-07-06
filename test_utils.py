@@ -43,17 +43,15 @@ class TestUtils(unittest.TestCase):
         self.assertTrue(filter_word('crepuscular'))  # 7.41e-08 so OK
         self.assertTrue(filter_word('puppy'))
 
-    def test_filter_word_list_quick(self):
+    def test_filter_word_list(self):
         word_list = ['the', 'crepuscular', 'dogs']
-        self.assertEqual(filter_word_list_quick(word_list), word_list) ## All spelled correctly
+        self.assertEqual(filter_word_list(word_list), word_list) ## All spelled correctly
         word_list = ['the', 'underworld', 'gh0st', 'errantry', 'an']
         valid_words = ['the', 'underworld']
-        self.assertEqual(filter_word_list_quick(word_list), valid_words)
-
-    def test_filter_word_list_spellcheck(self):
+        self.assertEqual(filter_word_list(word_list), valid_words)
         word_list = ['araignment', 'arraignment', 'dynosaur', 'dinosaur']
         correctly_spelled_word_list = ['arraignment', 'dinosaur']
-        self.assertEqual(filter_word_list_quick(word_list), correctly_spelled_word_list)
+        self.assertEqual(filter_word_list(word_list), correctly_spelled_word_list)
 
     def test_rhymes(self):
         self.assertEqual(rhymes('metamorphosis'), [])
@@ -95,13 +93,13 @@ class TestUtils(unittest.TestCase):
         self.assertRaises(ValueError, lambda: phonetically_related_words(False))
         self.assertRaises(ValueError, lambda: phonetically_related_words(None))
         self.assertRaises(ValueError, lambda: phonetically_related_words(['a', 'b', None]))
-        expected_pr_words = ['inchoate', 'payout', 'pet', 'peyote', 'pit', 'poached', 'poet', 'poets', 'poked',
+        expected_pr_words = ['inchoate', 'opiate', 'payout', 'pet', 'peyote', 'pit', 'poached', 'poet', 'poets', 'poked',
                              'post', 'putt']  # for input 'poet'
         self.assertEqual(sorted(phonetically_related_words('poet', sample_size=None)), expected_pr_words)
         results = phonetically_related_words('poet', sample_size=5)
         self.assertEqual(len(sorted(results)), 5)
         self.assertTrue(set(sorted(expected_pr_words)).issuperset(set(results)))
-        expected_pr_words = sorted(expected_pr_words + ['eon', 'gnawing', 'kneeing', 'naan', 'neon', 'non', 'noun'])
+        expected_pr_words = sorted(expected_pr_words + ['eon', 'gnawing', 'naan', 'neon', 'non', 'noun'])
         self.assertEqual(sorted(phonetically_related_words(['poet', 'neon'], sample_size=None)), expected_pr_words)
 
     def get_possible_word_list(self, input_word_list):
