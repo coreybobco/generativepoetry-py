@@ -44,7 +44,7 @@ def too_similar(word1, word2):
         return True
     return False
 
-def filter_word(string):
+def filter_word(string, spellcheck=True):
     validate_str(string)
     if len(string) < 3:
         return False
@@ -52,15 +52,15 @@ def filter_word(string):
         return False
     if word_frequency(string, 'en') < word_frequency_threshold:
         return False
-    if not hobj.spell(string):
+    if spellcheck and not hobj.spell(string):
         return False
     return True
 
 
-def filter_word_list(word_list):
+def filter_word_list(word_list, spellcheck=True):
     word_list = list(
         filter(
-            lambda word: filter_word(word), word_list
+            lambda word: filter_word(word, spellcheck=spellcheck), word_list
         )
     )
     return word_list
@@ -81,6 +81,7 @@ def rhyme(word):
         return next(iter(rhyme_list), None)
     return None
 
+
 def extract_sample(word_list, sample_size=None):
     if not sample_size or len(word_list) <= sample_size:
         # Return all results returned by API that pass filter
@@ -99,6 +100,8 @@ def similar_sounding_words(input_word, sample_size=6, datamuse_api_max=50):
     validate_word(input_word)
     response = api.words(sl=input_word, max=datamuse_api_max) if datamuse_api_max else api.words(sl=input_word)
     word_list = filter_word_list([obj['word'] for obj in response])
+    if input_word in word_list:
+        word_list.remove(input_word)
     return extract_sample(word_list, sample_size=sample_size)
 
 
@@ -109,7 +112,7 @@ def similar_sounding_word(input_word, datamuse_api_max=15):
 def similar_meaning_words(input_word, sample_size=6, datamuse_api_max=20):
     validate_word(input_word)
     response = api.words(ml=input_word, max=datamuse_api_max) if datamuse_api_max else api.words(sl=input_word)
-    word_list = filter_word_list([obj['word'] for obj in response])
+    word_list = filter_word_list([obj['word'] for obj in response], spellcheck=False)
     return extract_sample(word_list, sample_size=sample_size)
 
 
@@ -117,10 +120,10 @@ def similar_meaning_word(input_word, datamuse_api_max=10):
     return next(iter(similar_meaning_words(input_word, sample_size=1, datamuse_api_max=datamuse_api_max)), None)
 
 
-def intratextually_associated_words(input_word, sample_size=6, datamuse_api_max=30):
+def intratextually_associated_words(input_word, sample_size=6, datamuse_api_max=20):
     validate_word(input_word)
     response = api.words(rel_trg=input_word, max=datamuse_api_max) if datamuse_api_max else api.words(sl=input_word)
-    word_list = filter_word_list([obj['word'] for obj in response])
+    word_list = filter_word_list([obj['word'] for obj in response], spellcheck=False)  # Spellcheck removes proper nouns
     return extract_sample(word_list, sample_size=sample_size)
 
 
