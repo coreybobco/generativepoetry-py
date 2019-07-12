@@ -11,16 +11,23 @@ Things to try:
 ```
 from utils import *
 # When sample_size is not provided, all results are returned.
-rhymes('cool', sample_size=6) # 6 random rhymes with cool, defaults to all rhymes
+rhymes('cool', sample_size=6)  # 6 random rhymes with cool, defaults to all rhymes
 ['ghoul', 'misrule', 'drool', 'rule', 'uncool', 'spool']
+rhyme('cool')  # 1 at random
 
 similar_sounding_words('cool', sample_size=6) # 6 random non-rhymes that sound similar to cool
 ['cowl', 'coal', 'coil', 'call', 'keel', 'kale']
+similar_sounding_word('cool')  # 1 at random
 
 phonetically_related_words('slimy')
 ['grimy', 'stymie', 'slammed', 'slammer', 'slim', 'seamy', 'slimy', 'slams', 'slime', 'slam', 'samey', 'semi', 'salami']
+phonetically_related_words(['word', 'list'])  # Lists also work as input
 
-phonetically_related_words(['word', 'list'])
+similar_meaning_words('vampire', sample_size=8)  # Synonyms and other words with related meanings
+similar_meaning_word('vampire')  # 1 at random
+
+intratextually_associated_words('metamorphosis', sample_size=10)  # Words that statistically frequently appear in the same text
+intratextually_associated_word('metamorphosis')  # 1 at random
 
 print(poem_from_word_list(['crypt', 'lost', 'ghost', 'time']))
 laced kept crypts  or  corrupt...   toast?

@@ -26,7 +26,6 @@ class TestUtils(unittest.TestCase):
         self.assertTrue(has_invalid_characters("apostrophe'"))
         self.assertFalse(has_invalid_characters('espousal'))
 
-
     def test_too_similar(self):
         self.assertFalse(too_similar(None, 25.2))
         self.assertFalse(too_similar('string', 25))
@@ -43,17 +42,15 @@ class TestUtils(unittest.TestCase):
         self.assertTrue(filter_word('crepuscular'))  # 7.41e-08 so OK
         self.assertTrue(filter_word('puppy'))
 
-    def test_filter_word_list_quick(self):
+    def test_filter_word_list(self):
         word_list = ['the', 'crepuscular', 'dogs']
-        self.assertEqual(filter_word_list_quick(word_list), word_list) ## All spelled correctly
+        self.assertEqual(filter_word_list(word_list), word_list) ## All spelled correctly
         word_list = ['the', 'underworld', 'gh0st', 'errantry', 'an']
         valid_words = ['the', 'underworld']
-        self.assertEqual(filter_word_list_quick(word_list), valid_words)
-
-    def test_filter_word_list_spellcheck(self):
+        self.assertEqual(filter_word_list(word_list), valid_words)
         word_list = ['araignment', 'arraignment', 'dynosaur', 'dinosaur']
         correctly_spelled_word_list = ['arraignment', 'dinosaur']
-        self.assertEqual(filter_word_list_quick(word_list), correctly_spelled_word_list)
+        self.assertEqual(filter_word_list(word_list), correctly_spelled_word_list)
 
     def test_rhymes(self):
         self.assertEqual(rhymes('metamorphosis'), [])
@@ -74,20 +71,64 @@ class TestUtils(unittest.TestCase):
         self.assertIsNone(rhyme('metamorphosis'))
         self.assertIn(rhyme('sprouting'), rhymes('sprouting'))
 
+    def test_extract_sample(self):
+        self.assertEqual(extract_sample([], sample_size=100), [])
+        self.assertEqual(extract_sample(['a'], sample_size=100), ['a'])
+        self.assertEqual(sorted(extract_sample(['a','b','c'], sample_size=3)), ['a','b','c'])
+        sample = extract_sample(['a','b','c','d','e','f'], sample_size=4)
+        self.assertNotEqual(sorted(sample), ['a','b','c','d','e','f'])
+        self.assertTrue(set(['a','b','c','d','e','f']).issuperset(set(sample)))
+
     def test_similar_sounding_words(self):
-        all_similar_sounding_words = ['hastening', 'heightening', 'hominid', 'hominy', 'homonym', 'homonyms',
-                                      'summoning', 'synonym']
+        all_similar_sounding_words = ['hastening', 'heightening', 'hominid', 'hominy', 'homonyms', 'summoning',
+                                      'synonym']
         self.assertEqual(sorted(similar_sounding_words('homonym', sample_size=None)), all_similar_sounding_words)
         results = similar_sounding_words('homonym')
         self.assertEqual(len(results), 6)
         self.assertTrue(set(all_similar_sounding_words).issuperset(set(results)))
-        pass
 
     def test_similar_sounding_word(self):
-        self.assertIsNone(rhyme('metamorphosis'))
+        self.assertIsNone(similar_sounding_word('voodoo'))
         all_similar_sounding_words = ['hastening', 'heightening', 'hominid', 'hominy', 'homonym', 'homonyms',
                                       'summoning', 'synonym']  # Using this to save API call in test
         self.assertIn(similar_sounding_word('homonym'), all_similar_sounding_words)
+
+    def test_similar_meaning_words(self):
+        self.assertEqual(similar_meaning_words('nonexistentword'), [])
+        similar_meaning_to_vampire_words = ['bats', 'bloodsucker', 'clan', 'demon', 'ghoul', 'james', 'kind', 'lamia',
+                                            'lycanthrope', 'lycanthropy', 'shane', 'shapeshifter', 'succubus', 'undead',
+                                            'vamp', 'vampirism', 'werewolf', 'witch', 'wolfman', 'zombie']
+        self.assertEqual(sorted(similar_meaning_words('vampire', sample_size=None)), similar_meaning_to_vampire_words)
+        results = similar_meaning_words('vampire', sample_size=6)
+        self.assertEqual(len(results), 6)
+        self.assertTrue(set(similar_meaning_to_vampire_words).issuperset(set(results)))
+
+    def test_similar_meaning_word(self):
+        self.assertIsNone(similar_meaning_word('nonexistentword'))
+        similar_meaning_to_vampire_words = ['bats', 'bloodsucker', 'clan', 'demon', 'ghoul', 'james', 'kind', 'lamia',
+                                            'lycanthrope', 'lycanthropy', 'shane', 'shapeshifter', 'succubus', 'undead',
+                                            'vamp', 'vampirism', 'werewolf', 'witch', 'wolfman', 'zombie']
+        self.assertIn(similar_meaning_word('vampire'), similar_meaning_to_vampire_words)
+
+    def test_intratextually_associated_words(self):
+        self.assertEqual(intratextually_associated_words('nonexistentword'), [])
+        intratextually_associated_w_metamorphosis = ['budding', 'cocoon', 'duff', 'frogs', 'gills', 'hatching',
+                                                     'juvenile', 'kafka', 'lamprey', 'larva', 'metamorphose',
+                                                     'narcissus', 'nymph', 'polyp', 'polyps', 'pupa', 'pupal',
+                                                     'salamander', 'starfish', 'tadpole']
+        self.assertEqual(sorted(intratextually_associated_words('metamorphosis', sample_size=None)),
+                         intratextually_associated_w_metamorphosis)
+        results = intratextually_associated_words('metamorphosis', sample_size=6)
+        self.assertEqual(len(results), 6)
+        self.assertTrue(set(intratextually_associated_w_metamorphosis).issuperset(set(results)))
+
+    def test_intratextually_associated_word(self):
+        self.assertIsNone(intratextually_associated_word('nonexistentword'))
+        intratextually_associated_w_metamorphosis = ['budding', 'cocoon', 'duff', 'frogs', 'gills', 'hatching',
+                                                     'juvenile', 'kafka', 'lamprey', 'larva', 'metamorphose',
+                                                     'narcissus', 'nymph', 'polyp', 'polyps', 'pupa', 'pupal',
+                                                     'salamander', 'starfish', 'tadpole']
+        self.assertIn(intratextually_associated_word('metamorphosis'), intratextually_associated_w_metamorphosis)
 
     def test_phonetically_related_words(self):
         self.assertRaises(ValueError, lambda: phonetically_related_words(2))
@@ -95,13 +136,14 @@ class TestUtils(unittest.TestCase):
         self.assertRaises(ValueError, lambda: phonetically_related_words(False))
         self.assertRaises(ValueError, lambda: phonetically_related_words(None))
         self.assertRaises(ValueError, lambda: phonetically_related_words(['a', 'b', None]))
-        expected_pr_words = ['inchoate', 'payout', 'pet', 'peyote', 'pit', 'poached', 'poet', 'poets', 'poked',
+        expected_pr_words = ['inchoate', 'opiate', 'payout', 'pet', 'peyote', 'pit', 'poached', 'poets', 'poked',
                              'post', 'putt']  # for input 'poet'
         self.assertEqual(sorted(phonetically_related_words('poet', sample_size=None)), expected_pr_words)
         results = phonetically_related_words('poet', sample_size=5)
         self.assertEqual(len(sorted(results)), 5)
         self.assertTrue(set(sorted(expected_pr_words)).issuperset(set(results)))
-        expected_pr_words = sorted(expected_pr_words + ['eon', 'gnawing', 'kneeing', 'naan', 'neon', 'non', 'noun'])
+        expected_pr_words = sorted(expected_pr_words +
+                                   ['eon', 'gnawing', 'knowing', 'kneeing', 'naan', 'non', 'noun'])
         self.assertEqual(sorted(phonetically_related_words(['poet', 'neon'], sample_size=None)), expected_pr_words)
 
     def get_possible_word_list(self, input_word_list):
@@ -131,7 +173,6 @@ class TestUtils(unittest.TestCase):
                 #  No word should be too similar to the preceding word
                 self.assertFalse(too_similar(word, last_word))
                 last_word = word
-
 
     def test_poem_from_word_list(self):
         input_word_list = ['crypt', 'sleep', 'ghost', 'time']
