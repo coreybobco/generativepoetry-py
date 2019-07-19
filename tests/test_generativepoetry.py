@@ -1,8 +1,8 @@
 import unittest
-from utils import *
+from generativepoetry import *
 
 
-class TestUtils(unittest.TestCase):
+class TestValidationAndFilters(unittest.TestCase):
 
     def test_validate_str(self):
         self.assertRaises(ValueError, lambda: validate_str(2))
@@ -52,6 +52,8 @@ class TestUtils(unittest.TestCase):
         correctly_spelled_word_list = ['arraignment', 'dinosaur']
         self.assertEqual(filter_word_list(word_list), correctly_spelled_word_list)
 
+
+class TestWordSampling(unittest.TestCase):
     def test_rhymes(self):
         self.assertEqual(rhymes('metamorphosis'), [])
         results = rhymes('clouds')
@@ -146,6 +148,8 @@ class TestUtils(unittest.TestCase):
                                    ['eon', 'gnawing', 'knowing', 'kneeing', 'naan', 'non', 'noun'])
         self.assertEqual(sorted(phonetically_related_words(['poet', 'neon'], sample_size=None)), expected_pr_words)
 
+
+class TestPoemGenerator(unittest.TestCase):
     def get_possible_word_list(self, input_word_list):
         possible_line_enders = ['.', ',', '!', '?', '...']
         possible_words = input_word_list.copy()

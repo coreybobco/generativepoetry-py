@@ -5,7 +5,11 @@ python:
 dist: bionic
 
 before_install:
-  - sudo apt-get update && sudo apt install -y libhunspell-dev hunspell-en-us 
+  - sudo apt-get update && sudo apt install -y libhunspell-dev hunspell-en-us
+
+install:
+  - pip install -r requirements.txt
+  - pip install coverage
 
 script:
-  - python3 test_utils.py
+  - coverage run --source generativepoetry setup.py test --verbose

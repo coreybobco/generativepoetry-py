@@ -1,3 +1,21 @@
 __pycache__/
 .idea/
 .idea/*
+
+# Unit test / coverage reports
+.coverage
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
