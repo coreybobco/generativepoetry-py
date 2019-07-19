@@ -1,4 +1,32 @@
-# procedural poetry utils
+# Generative Poetry
+
+
+### What is this? 
+
+This is primarily a library for procedurally generating visual poems. 
+
+When provided a list of input words, a poem is generated using these words plus a broader group of words that are phonetically related to the list of input words. The words are joined by conjunctions and punctuation that is generally agnostic as to the surrounding word's part of speech, and spacing and indentation is randomized to emulate the characteristics visual poetry.
+
+Using the [Datamuse API](https://pypi.org/project/python-datamuse/), this library also can find rhymes, similar sounding words, similar meaning words, or intratextually statistically associated words (i.e. words that appears a lot within documents also containing word X).
+
+Consequently, this library requires an internet connection to work properly. 
+
+### Why should I care about mechanically generated poems? Is this really art?
+
+The visual poems this produces are interesting for two reasons. As readers, we are trained to read horizontally and sometimes vertically, so we draw connections based on the spatial proximity of words on a page or on a screen. We also draw connections between words with similar meanings or similar sounds to one another. 
+
+This makes it easy to suspend one's disbelief when reading these poems and search for meaning or answers to enigmatic word choices or phrasings when there is no enigma to be solved. 
+When reading these procedurally generated poems, it is easy to suspend one's disbelief and invent a context or reading for what is happening, or try to find a meaning or intention between a seemingly enigmatic or ambiguous word choice or phrasing when there is none. 
+
+In this sense, these poems are similar to abstract paintings in which paint is thrown onto the canvas, or to a Rorschach test. They are, for the most part, suggestive optical illusions, engineered by chance and a choice palette of paints or words.
+
+### Installation
+
+Because this library currently relies on hunspell, which does not work on Windows with Python 3.5+, I recommend Windows and OSX users run it in a Docker container.
+
+Ubuntu/Debian users should install libhunspell-dev beforehand:  `sudo apt-get install libhunspell-dev`
+
+### How to Use
 
 Run Python interactive shell from Docker
 

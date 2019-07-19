@@ -35,6 +35,7 @@ def validate_word(string):
     if has_invalid_characters(string):
         raise ValueError('Word may not contain digits, spaces, or special characters.')
 
+
 def too_similar(word1, word2):
     if not isinstance(word1, str) or not isinstance(word2, str) or len(word1) == 0 or len(word2) == 0:
         return False
@@ -43,6 +44,7 @@ def too_similar(word1, word2):
     if word1 + 's' == word2 or word2 + 's' == word1:
         return True
     return False
+
 
 def filter_word(string, spellcheck=True):
     validate_str(string)
@@ -195,3 +197,9 @@ def poem_from_word_list(input_word_list, lines=6, link_line_to_input_word=False)
 
     output += random.choice(input_word_list[:-1]) + ' ' + input_word_list[-1]
     return output
+
+
+def print_poem(poem):
+        print('\n')
+        print(poem)
+        print('\n')
