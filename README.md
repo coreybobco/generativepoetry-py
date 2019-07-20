@@ -1,13 +1,12 @@
 # Generative Poetry
 
-
 ### What is this? 
 
 This is primarily a library for procedurally generating visual poems. 
 
 When provided a list of input words, a poem is generated using these words plus a broader group of words that are phonetically related to the list of input words. The words are joined by conjunctions and punctuation that is generally agnostic as to the surrounding word's part of speech, and spacing and indentation is randomized to emulate the characteristics visual poetry.
 
-Using the [Datamuse API](https://pypi.org/project/python-datamuse/), this library also can find rhymes, similar sounding words, similar meaning words, or intratextually statistically associated words (i.e. words that appears a lot within documents also containing word X).
+Using the [Datamuse API](https://pypi.org/project/python-datamuse/) and a rhyme dictionary, this library also can find rhymes, similar sounding words, similar meaning words, or intratextually statistically associated words (i.e. words that appears a lot within documents also containing word X). Because the sources return many extremely archaic words as well as abbreviations, some words are also filtered out.
 
 Consequently, this library requires an internet connection to work properly. 
 
@@ -22,12 +21,21 @@ In this sense, these poems are similar to abstract paintings in which paint is t
 
 ### Installation
 
-Because this library currently relies on hunspell, which does not work on Windows with Python 3.5+, I recommend Windows and OSX users run it in a Docker container.
+##### Windows
+Because this library currently relies on the Python package hunspell, which does not support Windows, you must use Docker. See below instructions.
+
+##### OSX
+
+OSX users must install 
+##### Linux
 
 Ubuntu/Debian users should install libhunspell-dev beforehand:  `sudo apt-get install libhunspell-dev`
 
-### How to Use
+##### Docker
 
+
+
+### How to Use
 Run Python interactive shell from Docker
 
 ```
@@ -56,6 +64,8 @@ similar_meaning_word('vampire')  # 1 at random
 
 intratextually_associated_words('metamorphosis', sample_size=10)  # Words that statistically frequently appear in the same text
 intratextually_associated_word('metamorphosis')  # 1 at random
+
+print_poem(poem) # Adds a couple newlines around the poem so you can screenshot your creation in the terminal
 
 print(poem_from_word_list(['crypt', 'lost', 'ghost', 'time']))
 laced kept crypts  or  corrupt...   toast?

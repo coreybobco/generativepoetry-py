@@ -4,14 +4,26 @@ import pronouncing
 import hunspell
 from wordfreq import word_frequency
 from datamuse import datamuse
+import platform
 
 api = datamuse.Datamuse()
-hobj = hunspell.HunSpell('/usr/share/hunspell/en_US.dic', '/usr/share/hunspell/en_US.aff')
 default_connectors = [' ', '   ', '...   ', random.choice([' & ', ' and ']), '  or  ', ' or ']
 line_enders = ['.', ', ', '!', '?', '', ' or', '...']
 line_indents = ['', '    ', '         ']
 word_frequency_threshold = 4e-08
 
+if platform.system == 'Windows':
+    raise Exception('Your OS is not currently supported.')
+elif platform.system() == 'Darwin':
+    try:
+        hobj = hunspell.HunSpell('/Library/Spelling/en_US.dic', '/Library/Spelling/en_US.aff')
+    except Exception:
+        raise Exception('This module requires the installation of the hunspell dictionary')
+else:
+    try:
+        hobj = hunspell.HunSpell('/usr/share/hunspell/en_US.dic', '/usr/share/hunspell/en_US.aff')
+    except Exception:
+        raise Exception('This module requires the installation of the hunspell dictionary')
 
 def validate_str(input, msg='Not a string'):
     if not isinstance(input, str):
@@ -67,7 +79,6 @@ def filter_word_list(word_list, spellcheck=True):
     )
     return word_list
 
-
 def rhymes(word, sample_size=None):
     rhymes = filter_word_list([word for word in set(pronouncing.rhymes(word))])
     if isinstance(sample_size, int) and sample_size < len(rhymes):
@@ -82,7 +93,6 @@ def rhyme(word):
     if len(rhyme_list):
         return next(iter(rhyme_list), None)
     return None
-
 
 def extract_sample(word_list, sample_size=None):
     if not sample_size or len(word_list) <= sample_size:
