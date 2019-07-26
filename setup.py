@@ -18,16 +18,16 @@ setup(
     long_description=readme,
     author="Corey Bobco",
     author_email='corey.bobco@gmail.com',
-    url='https://github.com/coreybobco/generativepoetrypy',
+    url='https://github.com/coreybobco/generativepoetry-py',
     packages=[
         'generativepoetry',
     ],
     package_dir={'generativepoetry':
                  'generativepoetry'},
     install_requires=requirements,
-    license="BSD",
+    license="MIT",
     zip_safe=True,
-    keywords='pronouncing',
+    keywords='poetry',
     classifiers=[
         "Development Status :: 3 - Alpha",
         'License :: OSI Approved :: BSD License',
