@@ -6,6 +6,10 @@ from wordfreq import word_frequency
 from datamuse import datamuse
 import platform
 
+__author__ = 'Corey Bobco'
+__email__ = 'corey.bobco@gmail.com'
+__version__ = '0.1.0'
+
 api = datamuse.Datamuse()
 default_connectors = [' ', '   ', '...   ', random.choice([' & ', ' and ']), '  or  ', ' or ']
 line_enders = ['.', ', ', '!', '?', '', ' or', '...']
