@@ -13,7 +13,7 @@ requirements = [
 
 setup(
     name='generativepoetry',
-    version='0.1.1',
+    version='0.1.2',
     description='A library primarily for procedurally generating visual poems',
     long_description=readme,
     author="Corey Bobco",

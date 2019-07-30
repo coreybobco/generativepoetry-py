@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.1.2] - 2019-07-229
+- Fixed readme so example image will show on Pypi
+
 ## [0.1.1] - 2019-07-29
 ### Added
 - Added example image to readme.
