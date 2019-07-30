@@ -68,7 +68,7 @@ Ubuntu/Debian users should install hunspell-en-us and libhunspell-dev beforehand
 
 .. code-block::
 
-   sudo apt-get install hunspell-en-us libhunspell-dev``
+   sudo apt-get install hunspell-en-us libhunspell-dev
 
 Then install using pip with:
 
