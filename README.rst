@@ -51,6 +51,7 @@ OSX
 OSX users must install hunspell beforehand:
 
 .. code-block::
+
    brew install hunspell
 
 Then download the en_US dictionary from http://wordlist.aspell.net/dicts/ and unzip it to /Library/Spelling/.
@@ -66,6 +67,7 @@ Linux
 Ubuntu/Debian users should install hunspell-en-us and libhunspell-dev beforehand:
 
 .. code-block::
+
    sudo apt-get install hunspell-en-us libhunspell-dev``
 
 Then install using pip with:
