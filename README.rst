@@ -185,6 +185,6 @@ Finds a random sample of the rarest words that are related to a given input word
    # To get the top 10 rarest words and then randomly select 5 from that:
    related_rare_words('spherical', sample_size=5, rare_word_population_max=16)
    # When not provided, sample_size defaults to 8, and rare_word_population_max defaults to 20.
-   # The same arguments can be optionally supplied to contextually_linked_word, which draws one word at random:
+   # The same arguments can be optionally supplied to related_rare_word, which draws one word at random:
    related_rare_word('spherical', sample_size=8, rare_word_population_max=12)
    related_rare_word('spherical')
