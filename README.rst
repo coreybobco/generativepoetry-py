@@ -35,7 +35,7 @@ In this sense, these poems are similar to abstract paintings in which paint is t
 
 By way of example, here are five concrete poems from the same recipe I collaged together using the same *recipe*: the words *paranoid*, *marinate*, *hysteria*, *radio*, *waves*, and *reverie*.
 
-.. image:: https://raw.githubusercontent.com/coreybobco/generativepoetry-py/add_example/example.png
+    .. image:: https://raw.githubusercontent.com/coreybobco/generativepoetry-py/master/example.png
 
 Installation
 ^^^^^^^^^^^^

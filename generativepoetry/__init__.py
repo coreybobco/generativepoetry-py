@@ -12,8 +12,8 @@ __version__ = '0.1.3'
 
 __all__ = ['rhymes', 'rhyme', 'similar_sounding_word', 'similar_sounding_words', 'similar_meaning_word',
            'similar_meaning_words', 'contextually_linked_word', 'contextually_linked_words', 'related_rare_words',
-           'related_rare_word', 'phonetically_related_words', 'poem_line_from_word_list', 'poem_from_word_list',
-           'print_poem']
+           'related_rare_word', 'sort_by_rarity', 'phonetically_related_words', 'poem_line_from_word_list',
+           'poem_from_word_list', 'print_poem']
 
 api = datamuse.Datamuse()
 default_connectors = [' ', '   ', '...   ', random.choice([' & ', ' and ']), '  or  ', ' or ']
