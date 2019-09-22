@@ -8,7 +8,6 @@ from reportlab.pdfbase.pdfmetrics import registerFont, registerFontFamily
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.pagesizes import letter, landscape
 from nltk.corpus import stopwords
-from prosedecomposer import *
 from .utils import filter_word_list
 
 rgb_tuple = Tuple[float]
