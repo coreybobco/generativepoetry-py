@@ -338,7 +338,8 @@ class TestMarkovWordGenerator(unittest.TestCase):
         input_words = ['pataphysics', 'Dadaist']
         for i in range(2):
             result = markovgen.nonlast_word_of_markov_line(input_words[i:], words_for_sampling)
-            self.assertTrue(result in possible_randalg_results or result in words_for_sampling)
+            self.assertTrue(result in possible_randalg_results or result in words_for_sampling or
+                            result in markovgen.connector_choices)
             self.assertIn(markovgen.nonlast_word_of_markov_line(input_words[i:]), possible_randalg_results)
 
     def test_last_word(self):

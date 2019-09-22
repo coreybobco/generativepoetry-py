@@ -83,7 +83,7 @@ class MarkovWordGenerator:
         else:
             while word is None or (max_length and len(word) > max_length) or word in self.common_words \
                     or too_similar(word, previous_words):
-                # Maybe revisit defaulting rhymable fto true here
+                # Maybe revisit defaulting rhymable to true here
                 word = self.random_nonrhyme(previous_words, rhymable=True)
         return word
 

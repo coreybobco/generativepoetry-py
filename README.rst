@@ -35,19 +35,19 @@ In this sense, these poems are similar to abstract paintings in which paint is t
 
 By way of example, here are five concrete poems from the same recipe I collaged together using the same *recipe*: the words *paranoid*, *marinate*, *hysteria*, *radio*, *waves*, and *reverie*.
 
-    .. image:: https://raw.githubusercontent.com/coreybobco/generativepoetry-py/master/example_images/collage.png
+.. image:: https://raw.githubusercontent.com/coreybobco/generativepoetry-py/master/example_images/collage.png
 
 And here is an example of a generated Futurist visual poem (Futurism as in 1909 & F.T. Marinetti, not transhumanism -- see below).
 
-    .. image:: https://raw.githubusercontent.com/coreybobco/generativepoetry-py/master/example_images/futurist_pdf.png
+.. image:: https://raw.githubusercontent.com/coreybobco/generativepoetry-py/master/example_images/futurist_pdf.png
 
 And here is a poem produced using Markov chain text generation using the various word sampling methods in this package's "lexigen" submodule.
 
-    .. image:: https://raw.githubusercontent.com/coreybobco/generativepoetry-py/master/example_images/markov_pdf.png
+.. image:: https://raw.githubusercontent.com/coreybobco/generativepoetry-py/master/example_images/markov_pdf.png
 
 This one's more abstract, or perhaps more concrete, and by that I mean concrete poetry, which deals more with spatial arrangement and usually lacked syntax:
 
-    .. image:: https://raw.githubusercontent.com/coreybobco/generativepoetry-py/master/example_images/chaotic_concrete_pdf.png
+.. image:: https://raw.githubusercontent.com/coreybobco/generativepoetry-py/master/example_images/chaotic_concrete_pdf.png
 
 But not as chaotic as this method of making "character soup":
 
