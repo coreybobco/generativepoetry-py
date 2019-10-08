@@ -7,5 +7,6 @@ RUN fc-cache
 ADD ./ /usr/src/app/
 WORKDIR /usr/src/app/
 RUN pip3 install -r requirements.txt
+RUN python3 -m nltk.downloader stopwords
 
 CMD sleep infinity
