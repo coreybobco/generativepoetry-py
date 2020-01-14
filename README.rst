@@ -15,44 +15,59 @@ Generative Poetry
 
 What is this?
 ^^^^^^^^^^^^^
+This software library contains various constraint-based procedures for stochastically generating generating `concrete poetry <https://en.wikipedia.org/wiki/Concrete_poetry>`_ (a.k.a. visual poetry) to the terminal or as a PDF. Most of these procedures are interactive and designed to be used and re-used once you learn to "play the game" by exploiting the rules of the procedure. All these procedures rely on common building blocks, after all. When you provided a list of input words, hidden algorithms also find words related to those: phonetically or by way of meaning or context (more on this below). The words are then joined with various connectors depending on the procedure: random conjunctions and punctuation, related words (often creating stochastically generated puns and prosody as well as aberrations of syntax), mathematical symbols, uniform space, variable space.
 
-This is primarily a library for procedurally generating `concrete poetry <https://en.wikipedia.org/wiki/Concrete_poetry>`_ (a.k.a. visual poetry).
+The visual poems this produces are interesting for two reasons. As readers, we are trained to read horizontally and sometimes vertically, so we draw connections based on the spatial proximity of words on a page or on a screen. We also draw connections between words with similar meanings or similar sounds to one another. When reading many of these procedurally generated poems, it is easy to suspend one's disbelief and invent a context or reading for what is happening, or try to find a meaning or intention between a seemingly enigmatic or ambiguous word choice or phrasing when the execution of the code, which is not a human author, had no ascribed intent. In this sense, these poems are similar to abstract paintings in which paint is thrown onto the canvas, or to a Rorschach test. They are, for the most part, suggestive optical illusions, engineered by chance and a choice palette of words rather than paints. Nonetheless, the way some lines weave between prosody, pun, meaning, syntax and all these elements' destruction in pure nonsense creates an amusing and unique 21st century voice that reflects the chaotic nature of the Internet itself, home to literary gems and templatized spam alike, and the questionable faith of many in the eventual emergence of a sentient artificial intelligence capable of thought and writing which adopts human concerns, style, and syntax.
 
-When provided a list of input words, a poem is generated using these words plus a broader group of words that are phonetically related to the list of input words. The words are joined by conjunctions and punctuation that is generally agnostic as to the surrounding word's part of speech, and spacing and indentation is randomized to emulate the characteristics visual poetry.
+This project was heavily inspired by Oulipo, the literary movement founded in 1960 short for a phrase best translated as "workshop of potential literature" whose ranks included Raymond Queneau, Italo Calvino, and Georges Perec. According to Marjorie Perloff, whose work on concrete poetry and copying Unoriginal Genius was also a great inspiration for this project, "the Oulipo constraint is a generative device:  it creates a formal structure whose rules of composition are internalized so that the constraint in question is not only a rule but a thematic property of the poem." Due respect also must be given to Alastair Brotchie's `Book Of Surrealist Games <https://monoskop.org/images/e/e0/Brotchie_Alastair_Gooding_Mel_eds_A_Book_of_Surrealist_Games_1995.pdf>`_, which has taught me to keep experimenting and combining procedures, just as the Surrealist Groups have done in practice. The conceptual artist is often stereotyped as too wedded to the pure product of the procedure, but I find this attitude unhelpful; sometimes algorithmic output needs an edit, a remix, or some other medium touched by human hands to shine.
+
+By way of example, here are five concrete poems from the same recipe I digitally collaged together using the same *procedure*: the words *paranoid*, *marinate*, *hysteria*, *radio*, *waves*, and *reverie*.
+
+.. image:: https://raw.githubusercontent.com/coreybobco/generativepoetry-py/master/example_images/collage.png
+
+How do these procedures find related words, utilize random sampling, and filter out stuff like acronyms?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+For interactive procedures, when provided a list of input words, a poem is generated using these words plus a broader group of words that are phonetically related to the list of input words. The words are joined by conjunctions and punctuation that is generally agnostic as to the surrounding word's part of speech, and spacing and indentation is randomized to emulate the characteristics visual poetry.
 
 Using the `Datamuse API <https://pypi.org/project/python-datamuse/>`_ and a rhyme dictionary, this library also can find one or several rhymes, similar sounding words, similar meaning words, or intratextually statistically associated words (i.e. words that appears a lot within documents also containing word X). Because the sources return many extremely archaic words as well as abbreviations, some words are also filtered out. It allows for control of random sampling by both letting you choose the sample population size (# of API results returned, which are always returned by order of relevancy) and the sample size against that population.
 
 Consequently, this library requires an internet connection to work properly.
 
-Why should I care about mechanically generated poems? Is this really art?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Technical Implementation of Futurist Literature
+"""""""""""""""""""""""""""""""""""""""""""""""
 
-The visual poems this produces are interesting for two reasons. As readers, we are trained to read horizontally and sometimes vertically, so we draw connections based on the spatial proximity of words on a page or on a screen. We also draw connections between words with similar meanings or similar sounds to one another.
+In F.T. Marinetti's 1912 `Technical Manifesto of Futurist Literature <http://greeninteger.com/pdfs/marinetti-technical-manifesto-of-futurist-literature.pdf>`_, he proposes replacing conjunctions in language with mathematical operators and eliminating most parts of speech to make a poetry of becoming and shifting velocities. In many ways this manifesto anticipates the syntax of programming languages. This method of poem generation connects random phonetically related words together with mathematical operators.
 
-When reading these procedurally generated poems, it is easy to suspend one's disbelief and invent a context or reading for what is happening, or try to find a meaning or intention between a seemingly enigmatic or ambiguous word choice or phrasing when there is none. In this sense, these poems are similar to abstract paintings in which paint is thrown onto the canvas, or to a Rorschach test. They are, for the most part, suggestive optical illusions, engineered by chance and a choice palette of words rather than paints.
+Marinetti took himself far too seriously, however. This project is more in the spirit of pataphysics which Alfred Jarry defined as "the science of imaginary solutions, which symbolically attributes the properties of objects, described by their virtuality, to their lineaments" (c.f. `Exploits and Opinions of Doctor Faustroll, Pataphysician <http://libgen.is/book/index.php?md5=213C8D9CFDF94D5CB849372FEE7D9C77>`_). This original 1894 meaning of 'virtuality' did not carry connotations of computation but instead those of the philosophy of Henri Bergson, who attempt to rethink the metaphysics of space and time in terms of "matter and memory", e.g. the matter of the world as we perceived it and the layers of connotations and relationships of meaning we inevitably bring into any act of perception, linguistic creatures that we are. Nonetheless today virtuality comprises the digital world as well, and it is fitting that Jarry also wrote: 'Pataphysics will be, above all, the science of the particular, despite the common opinion that the only science is that of the general. 'Pataphysics will examine the laws governing exceptions, and will explain the universe supplementary to this one. I assure you this project implements exception handling. For more on the relationship between pataphysics and computing, see Andrew Hugill's `Pataphysics And Computing <http://andrewhugill.com/writings/Pataphysics%20and%20Computing.pdf>`_.
 
-In this sense, these poems are similar to abstract paintings in which paint is thrown onto the canvas, or to a Rorschach test. They are, for the most part, suggestive optical illusions, engineered by chance and a choice palette of paints or words.
-
-By way of example, here are five concrete poems from the same recipe I collaged together using the same *recipe*: the words *paranoid*, *marinate*, *hysteria*, *radio*, *waves*, and *reverie*.
-
-.. image:: https://raw.githubusercontent.com/coreybobco/generativepoetry-py/master/example_images/collage.png
-
-And here is an example of a generated Futurist visual poem (Futurism as in 1909 & F.T. Marinetti, not transhumanism -- see below).
+Below is an example "Futurist poem" concerning pataphysics and surrealism.
 
 .. image:: https://raw.githubusercontent.com/coreybobco/generativepoetry-py/master/example_images/futurist_pdf.png
 
-And here is a poem produced using Markov chain text generation using the various word sampling methods in this package's "lexigen" submodule.
+Markov Mutations: Jolas, Joyce, and Beyond
+""""""""""""""""""""""""""""""""""""""""""
+
+This method of poem generation asks the user for words as input, gets phonetically related words to those, and then uses both as ways to start lines, then using a probabilistic custom Markov chain based on previous words in a given line to derive the rest of the line. The stochastic emergence of puns and plays on words and cycle between sense and nonsense along with syntactic structure and anarchy remind me of James Joyce's Finnegan's Wake but were moreso inspired by another less known manifesto by Joyce's publisher and defender, Eugene Jolas, whose short and moving 1929 manifesto `Revolution of the Word" <http://jot101ok.blogspot.com/2015/06/revolution-of-word-modernist-manifesto.html>`_ argued the poet "has the right to use words of his own fashioning and to disregard existing grammatical and syntactical laws."
+
+This example poem was produced using Markov chain text generation using the various word sampling methods in this package's "lexigen" submodule.
 
 .. image:: https://raw.githubusercontent.com/coreybobco/generativepoetry-py/master/example_images/markov_pdf.png
 
-This one's more abstract, or perhaps more concrete, and by that I mean concrete poetry, which deals more with spatial arrangement and usually lacked syntax:
+Chaotic Concrete Poem
+"""""""""""""""""""""
+
+This one's more abstract  but also more concrete, and by that I mean concrete poetry, which deals more with spatial arrangement and usually lacked syntax:
 
 .. image:: https://raw.githubusercontent.com/coreybobco/generativepoetry-py/master/example_images/chaotic_concrete_pdf.png
 
+Character Soup
+""""""""""""""
 But not as chaotic as this method of making "character soup":
 
 .. image:: https://raw.githubusercontent.com/coreybobco/generativepoetry-py/master/example_images/character_soup_pdf.png
 
+Stop Word Soup
+""""""""""""""
 And this last one does the same thing but using stop words from NLTK along with "verbal stop words" like "um" and "ahem."
 
 .. image:: https://raw.githubusercontent.com/coreybobco/generativepoetry-py/master/example_images/stopword_soup_pdf.png
@@ -115,8 +130,6 @@ Import the relevant submodule first.
 Markov Chain Based Poem PDF
 """""""""""""""""""""""""""
 
-This method of poem generation asks the user for words as input, gets phonetically related words to those, and then uses both as ways to start lines, then using a probabilistic custom Markov chain based on previous words in a given line to derive the rest of the line.
-
 .. code-block::
 
    mppgen = MarkovPoemPDFGenerator()
@@ -125,8 +138,6 @@ This method of poem generation asks the user for words as input, gets phonetical
 
 Futurist Poem Generator
 """""""""""""""""""""""
-
-In F.T. Marinetti's 1912 `Technical Manifesto of Futurist Literature <http://greeninteger.com/pdfs/marinetti-technical-manifesto-of-futurist-literature.pdf>`_, he proposes replacing conjunctios in language and poetry with mathematical operators and eliminating most parts of speech. In many ways this manifesto anticipates the syntax of programming languages. This method of poem generation connects random phonetically related words together with mathematical operators.
 
 .. code-block::
 
@@ -157,7 +168,7 @@ This method of poem generation draws characters (letters, numbers, special chara
    # Expected filename: character_soup.pdf
 
 Stop Word Soup Poem
-""""""""""""""""""
+"""""""""""""""""""
 
 This method of poem generation draws stop words from NLTK's list (ex: the, and, of) as well as "verbal" stopwords (hmm, ah, umm, etc.) at random XY coordiantes on the page.
 
