@@ -309,5 +309,3 @@ These are words that frequently follow a given word in Project Datamuse's corpor
    # The same arguments can be optionally supplied to frequently_following_word, which draws one word at random:
    frequently_following_word('metamorphosis', sample_size=8, datamuse_api_max=12)
    frequently_following_word('metamorphosis')
-
-Kudos
