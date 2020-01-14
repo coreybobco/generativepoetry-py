@@ -78,6 +78,9 @@ Using the `Datamuse API <https://pypi.org/project/python-datamuse/>`_ and a rhym
 
 Consequently, this library requires an internet connection to work properly.
 
+What are these artistic procedures and what can one make with them?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 Technical Implementation of Futurist Literature
 """""""""""""""""""""""""""""""""""""""""""""""
 
