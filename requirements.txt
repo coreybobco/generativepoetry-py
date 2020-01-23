@@ -1,6 +1,7 @@
 console-menu==0.6.0
 hunspell>=0.5.5
 nltk==3.4.5
+pdf2image==1.11.0
 pronouncing>=0.2.0
 python-datamuse==1.2.1
 reportlab>=3.5.26

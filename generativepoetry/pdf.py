@@ -1,3 +1,4 @@
+import os
 import random
 import string
 from os.path import isfile
@@ -8,6 +9,12 @@ from reportlab.pdfbase.pdfmetrics import registerFont, registerFontFamily
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.pagesizes import letter, landscape
 from nltk.corpus import stopwords
+from pdf2image import convert_from_path, convert_from_bytes
+from pdf2image.exceptions import (
+    PDFInfoNotInstalledError,
+    PDFPageCountError,
+    PDFSyntaxError
+)
 from .utils import filter_word_list
 
 rgb_tuple = Tuple[float]
@@ -62,13 +69,20 @@ class PDFGenerator:
         else:
             return 250 if self.orientation == 'portrait' else 280
 
-    def get_filename(self, input_words, file_extension='pdf'):
+    def set_filename(self, input_words, file_extension='pdf'):
         sequence = ""
         filename = f"{','.join(input_words)}{sequence}.{file_extension}"
         while isfile(filename):
             sequence = int(sequence or 0) + 1
             filename = f"{','.join(input_words)}({sequence}).{file_extension}"
+        self.pdf_filepath = os.getcwd() + '/'  + filename
         return filename
+
+    def generate_png(self, input_filepath=None):
+        print('Generating image...')
+        pages = convert_from_path(input_filepath)
+        for page in pages:
+            page.save(f'{input_filepath[:-3]}png', 'PNG')
 
 
 class ChaoticConcretePoemPDFGenerator(PDFGenerator):
@@ -78,7 +92,7 @@ class ChaoticConcretePoemPDFGenerator(PDFGenerator):
         input_words = get_input_words() if not len(input_words) else input_words
         output_words = input_words + phonetically_related_words(input_words)
         random.shuffle(output_words)
-        filename = self.get_filename(input_words)
+        filename = self.set_filename(input_words)
         c = canvas.Canvas(filename)
         for word in output_words[:200]:
             word = random.choice([word, word, word, word.upper()])
@@ -174,7 +188,7 @@ class MarkovPoemPDFGenerator(PDFGenerator):
         poem = poemgen.poem_from_markov(input_words=input_words, min_line_words=min_line_words, num_lines=num_lines,
                                         max_line_words=max_line_words, max_line_length=max_line_length)
         font_choice, last_font_choice = None, None
-        filename = self.get_filename(input_words)
+        filename = self.set_filename(input_words)
         if orientation == 'landscape':
             c = canvas.Canvas(filename, pagesize=landscape(letter))
         else:
@@ -209,7 +223,7 @@ class FuturistPoemPDFGenerator(PDFGenerator):
         for i in range(25):
             random.shuffle(word_list)
             poem_lines.append(pgen.poem_line_from_word_list(word_list, connectors=self.connectors, max_line_length=40))
-        filename = self.get_filename(input_words)
+        filename = self.set_filename(input_words)
         c = canvas.Canvas(filename)
         y_coordinate = 60
         for line in poem_lines:

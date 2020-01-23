@@ -496,11 +496,11 @@ class TestPDFGeneration(unittest.TestCase):
         x_coordinate = pdfgen.get_max_x_coordinate('short', 'Arial', 15)
         self.assertEqual(x_coordinate, 250)
 
-    def test_get_filename(self):
+    def test_set_filename(self):
         pdfgen = PDFGenerator()
         input_words = ['chalice', 'crime', 'coins', 'spectacular', 'dazzle', 'enigma']
-        self.assertEqual(pdfgen.get_filename(input_words), 'chalice,crime,coins,spectacular,dazzle,enigma.pdf')
-        self.assertEqual(pdfgen.get_filename(input_words, file_extension='png'),
+        self.assertEqual(pdfgen.set_filename(input_words), 'chalice,crime,coins,spectacular,dazzle,enigma.pdf')
+        self.assertEqual(pdfgen.set_filename(input_words, file_extension='png'),
                          'chalice,crime,coins,spectacular,dazzle,enigma.png')
         
 

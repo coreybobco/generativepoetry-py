@@ -12,6 +12,7 @@ def interactive_loop(poetry_generator):
     input_words = get_input_words()
     while exit_loop == False:
         poetry_generator.generate_pdf(input_words=input_words)
+        poetry_generator.generate_png(poetry_generator.pdf_filepath)
         print(reuse_words_prompt)
         if input() != 'yes':
             exit_loop = True

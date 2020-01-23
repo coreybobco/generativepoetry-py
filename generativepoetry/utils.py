@@ -27,18 +27,26 @@ str_or_list_of_str = TypeVar('str_or_list_of_str', str, List[str])
 unfitting_words = ['thew', 'iii', 'arr', 'atty', 'haj', 'pao', 'gea', 'ning', 'mor', 'mar', 'iss', 'eee', 'pls', 'fia',
                    'gar', 'ism', 'schwa', 'sor', 'bpa', 'saba', 'ria', 'nds', 'moi', 'esc', 'sabra', 'cim', 'rha',
                    'dist', 'nos', 'noes', 'brs', 'ltd', 'inc', 'gov', 'pis', 'lav', 'elev', 'ups', 'ms', 'srg', 'cas',
-                   'dago', 'prob', 'sro', 'ccs', 'pas', 'sab', 'cscs', 'arv', 'uhf', 'var', 'obe', 'tid', 'cpd']
+                   'dago', 'prob', 'sro', 'ccs', 'pas', 'sab', 'cscs', 'arv', 'uhf', 'var', 'obe', 'tid', 'cpd', 'lacs']
 # Datamuse is built from webscraping and occasionally returns offensive and oppressive language, which I am here adding
 # to filter out. Although there is an appropriate and even critical way for humans to write poetry using some of these
 # words that might be considered edge cases (e.g. Hottentot), a stochastic text generator does not have a historical
 # sense to do that, so I have decided to exclude these.
-oppressive_words = ['beaner', 'blacks', 'coon', 'coloureds', 'dago', 'darkie', 'honky', 'hottentot',  'hottentots',
-                    'injun', 'jap', 'kaffir', 'kike', 'kkk', 'mammy', 'negro', 'negrito', 'nigga', 'nigger', 'niggers',
+hate_words = ['beaner', 'blacks', 'coon', 'coloureds', 'dago', 'darkie', 'honky', 'hottentot',  'hottentots',
+             'injun', 'jap', 'kaffir', 'kike', 'kkk', 'mammy', 'negro', 'negrito', 'nigga', 'nigger', 'niggers',
                     'paki', 'pommy', 'racialist', 'swart', 'wetback', 'whitey', 'whities', 'wog', 'wop']
-unfitting_words.extend(oppressive_words)
+unfitting_words.extend(hate_words)
+# with open("../wordlists/abbeviations_etc.txt") as filename:
+#     unfitting_words = f.readlines()
+# # Datamuse is built from webscraping and occasionally returns offensive and oppressive language, which I am here adding
+# # to filter out. Although there is an appropriate and even critical way for humans to write poetry using some of these
+# # words that might be considered edge cases (e.g. Hottentot), a stochastic text generator does not have a historical
+# # sense to do that, so I have decided to exclude these.
+# with open("../wordlists/hate_words.txt") as filename:
+#     unfitting_words.extend(f.readlines())
 
 def get_input_words():
-    prompt = 'To generate a poem, type some words separated by commas or spaces, and then press enter again.\n\n'
+    prompt = 'To generate a poem, type some words separated by commas or spaces, and then press enter.\n\n'
 
     input_words = []
     while len(input_words) == 0:
