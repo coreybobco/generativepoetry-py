@@ -66,6 +66,7 @@ class PoemGenerator:
             else:
                 word = markovgen.nonlast_word_of_markov_line(output_words, words_for_sampling=words_for_sampling)
                 output_words.append(word)
+        correct_a_vs_an(output_words)
         return " ".join(output_words)
 
     def poem_from_markov(self, input_words, num_lines=10, min_line_words: int = 5, max_line_words: int = 9,

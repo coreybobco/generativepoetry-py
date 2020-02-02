@@ -24,26 +24,16 @@ def setup_spellchecker():
 
 hobj = setup_spellchecker()
 str_or_list_of_str = TypeVar('str_or_list_of_str', str, List[str])
-unfitting_words = ['thew', 'iii', 'arr', 'atty', 'haj', 'pao', 'gea', 'ning', 'mor', 'mar', 'iss', 'eee', 'pls', 'fia',
-                   'gar', 'ism', 'schwa', 'sor', 'bpa', 'saba', 'ria', 'nds', 'moi', 'esc', 'sabra', 'cim', 'rha',
-                   'dist', 'nos', 'noes', 'brs', 'ltd', 'inc', 'gov', 'pis', 'lav', 'elev', 'ups', 'ms', 'srg', 'cas',
-                   'dago', 'prob', 'sro', 'ccs', 'pas', 'sab', 'cscs', 'arv', 'uhf', 'var', 'obe', 'tid', 'cpd', 'lacs']
+
 # Datamuse is built from webscraping and occasionally returns offensive and oppressive language, which I am here adding
 # to filter out. Although there is an appropriate and even critical way for humans to write poetry using some of these
 # words that might be considered edge cases (e.g. Hottentot), a stochastic text generator does not have a historical
 # sense to do that, so I have decided to exclude these.
-hate_words = ['beaner', 'blacks', 'coon', 'coloureds', 'dago', 'darkie', 'honky', 'hottentot',  'hottentots',
-             'injun', 'jap', 'kaffir', 'kike', 'kkk', 'mammy', 'negro', 'negrito', 'nigga', 'nigger', 'niggers',
-                    'paki', 'pommy', 'racialist', 'swart', 'wetback', 'whitey', 'whities', 'wog', 'wop']
-unfitting_words.extend(hate_words)
-# with open("../wordlists/abbeviations_etc.txt") as filename:
-#     unfitting_words = f.readlines()
-# # Datamuse is built from webscraping and occasionally returns offensive and oppressive language, which I am here adding
-# # to filter out. Although there is an appropriate and even critical way for humans to write poetry using some of these
-# # words that might be considered edge cases (e.g. Hottentot), a stochastic text generator does not have a historical
-# # sense to do that, so I have decided to exclude these.
-# with open("../wordlists/hate_words.txt") as filename:
-#     unfitting_words.extend(f.readlines())
+with open('wordlists/abbreviations_etc.txt') as f:
+    unfitting_words = f.readlines()
+with open('wordlists/abbreviations_etc.txt') as f:
+    unfitting_words.extend(f.readlines())
+
 
 def get_input_words():
     prompt = 'To generate a poem, type some words separated by commas or spaces, and then press enter.\n\n'
@@ -198,3 +188,18 @@ def too_similar(word1: str, comparison_val: str_or_list_of_str) -> bool:
         if word1 in too_similar_case and word2 in too_similar_case:
             return True
     return False
+
+
+def correct_a_vs_an(phrase_as_list: List[str]) -> List[str]:
+    consonants = 'bcdfghjklmnpqrstvwxyz'
+    vowels = 'aeoiu'
+    last_word = None
+    for i, word in enumerate(phrase_as_list):
+        if last_word == 'a':
+            if word[0] in vowels:
+                phrase_as_list[i - 1] = 'an'
+        elif last_word == 'an':
+            if word[0] in consonants:
+                phrase_as_list[i - 1] = 'a'
+        last_word = word
+    return phrase_as_list

@@ -113,6 +113,12 @@ class TestUtils(unittest.TestCase):
         correctly_sorted_words = ['catabasis', 'corncob', 'errant', 'hue', 'Catalan', 'cat', 'the']
         self.assertEqual(sort_by_rarity(unsorted_words), correctly_sorted_words)
 
+    def correct_a_vs_a_vs_an(self):
+        needs_no_correction = ['an', 'obscure' 'elephant' 'and' 'a' 'wandering' 'heliotrope', 'see', 'a', '3']
+        self.assertEqual(correct_a_vs_an(needs_no_correction), needs_no_correction)
+        needs_correction = ['a', 'obscure' 'elephant' 'and' 'an' 'wandering' 'heliotrope', 'see', 'an', '3']
+        self.assertEqual(correct_a_vs_an(needs_no_correction), needs_no_correction)
+
 
 class TestLexigen(unittest.TestCase):
     def test_rhymes(self):
