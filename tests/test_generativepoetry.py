@@ -517,7 +517,7 @@ class TestChaoticConcretePoemPDFGenerator(unittest.TestCase):
         test_input = 'chalice crime coins spectacular'
         with patch('builtins.input', return_value=test_input):
             pdfgen.generate_pdf()
-        self.assertEqual(len(pdfgen.drawn_strings), 59)
+        self.assertEqual(len(pdfgen.drawn_strings), 58)
         for ds in pdfgen.drawn_strings:
             self.assertGreaterEqual(ds.x, 15)
             self.assertLessEqual(ds.x, 440)

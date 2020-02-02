@@ -31,7 +31,7 @@ setup(
     ],
     package_dir={'generativepoetry':
                  'generativepoetry'},
-    package_data={'generativepoetry': ['wordlists/*.txt']},
+    package_data={'generativepoetry': ['data/*.txt']},
     install_requires=requirements,
     scripts=['bin/generative-poetry-cli'],
     license="MIT",

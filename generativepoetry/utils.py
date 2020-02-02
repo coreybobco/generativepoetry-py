@@ -2,9 +2,10 @@ import hunspell
 import platform
 import random
 import re
+from consolemenu.screen import Screen
+from pathlib import Path
 from typing import List, TypeVar
 from wordfreq import word_frequency
-from consolemenu.screen import Screen
 
 
 def setup_spellchecker():
@@ -24,16 +25,6 @@ def setup_spellchecker():
 
 hobj = setup_spellchecker()
 str_or_list_of_str = TypeVar('str_or_list_of_str', str, List[str])
-
-# Datamuse is built from webscraping and occasionally returns offensive and oppressive language, which I am here adding
-# to filter out. Although there is an appropriate and even critical way for humans to write poetry using some of these
-# words that might be considered edge cases (e.g. Hottentot), a stochastic text generator does not have a historical
-# sense to do that, so I have decided to exclude these.
-with open('wordlists/abbreviations_etc.txt') as f:
-    unfitting_words = f.readlines()
-with open('wordlists/abbreviations_etc.txt') as f:
-    unfitting_words.extend(f.readlines())
-
 
 def get_input_words():
     prompt = 'To generate a poem, type some words separated by commas or spaces, and then press enter.\n\n'
@@ -121,6 +112,15 @@ def filter_word(string, spellcheck=True, exclude_words=[], word_frequency_thresh
     :param word_frequency_threshold: how frequently the word appears in the word_frequency package's corpus -- filter
                                      out word if less frequent than this threshold
     """
+    # Datamuse is built from webscraping and occasionally returns offensive and oppressive language, which I am here
+    # adding to filter out. Although there is an appropriate and even critical way for humans to write poetry using some
+    # of these words that might be considered edge cases (e.g. Hottentot), a stochastic text generator does not have
+    # a historical sense to do that, so I have decided to exclude these.
+    data_dir = Path(__file__).absolute().parent.parent / 'data'
+    with open(data_dir / 'hate_words.txt') as f:
+        unfitting_words = f.read().splitlines()
+    with open(data_dir / 'abbreviations_etc.txt') as f:
+        unfitting_words.extend(f.read().splitlines())
     exclude_words.extend(unfitting_words)  # Some words Datamuse tends to return that disruptive poetic flow
     validate_str(string)
     if len(string) < 3:
