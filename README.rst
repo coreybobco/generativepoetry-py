@@ -21,44 +21,12 @@ Conceptual writing handled by code is a fairly recent emergent field, so I would
 * Leonard Richardson's `olipy <https://github.com/leonardr/olipy/>`_ is another generative text software library with similar (Oulipian) concerns to my own which experiments with Markov chains, Queneau assembly, and has other fun miscellaneous functions like swapping letters in a text with corrupt ASCII versions.
 * Riley Wong's `poetry theremin <https://github.com/rileynwong/rpi-poetry-generator>`_ transforms light sensor values into visual poems composed from words sampled from the poetry of the great modernist Mina Loy as well as Allen Ginsberg and William Carlos Williams, among others.
 
-Installation
-^^^^^^^^^^^^
+Try now using Google Colab
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Windows
-"""""""
+Note: this will only work on desktop and tablet effectively because of screen-size issues. Keep this tab open to consult for reference.
 
-Because this library currently relies on the Python package hunspell, which does not support Windows, use Docker to launch a Linux-based container, then use pip to install, and enter the Python interactive shell within:
-
-.. code-block::
-
-   docker run -t -d python python3 -m pip install generativepoetry && python3
-
-OSX
-"""
-
-OSX users must install hunspell beforehand:
-
-.. code-block::
-
-   brew install hunspell
-
-Then download the en_US dictionary from http://wordlist.aspell.net/dicts/ and unzip it to /Library/Spelling/ and install using pip:
-
-.. code-block::
-
-   python3 -m pip install generativepoetry
-
-You will also need Microsoft's core font TTF files in /Library/Fonts/.
-
-Linux
-"""""
-
-Ubuntu/Debian users should install hunspell-en-us and libhunspell-dev beforehand and then install with pip:
-
-.. code-block::
-
-   sudo apt-get install hunspell-en-us libhunspell-dev
-   python3 -m pip install generativepoetry
+https://colab.research.google.com/drive/1eNTBSLMPpemYQq4n3keKCjVpw_JqY6w-
 
 What is this?
 ^^^^^^^^^^^^^
@@ -314,3 +282,45 @@ These are words that frequently follow a given word in Project Datamuse's corpor
    # The same arguments can be optionally supplied to frequently_following_word, which draws one word at random:
    frequently_following_word('metamorphosis', sample_size=8, datamuse_api_max=12)
    frequently_following_word('metamorphosis')
+
+
+Installation
+^^^^^^^^^^^^
+
+If you just want to try the notebook, I recommend using Google Colab. However, if you wish to modify the code or use some of the above functions in a live Python console or your own project, you can install the package on your local machine following the instructions listed below.
+
+Windows
+"""""""
+
+Because this library currently relies on the Python package hunspell, which does not support Windows, use Docker to launch a Linux-based container, then use pip to install, and enter the Python interactive shell within:
+
+.. code-block::
+
+   docker run -t -d python python3 -m pip install generativepoetry && python3
+
+OSX
+"""
+
+OSX users must install hunspell beforehand:
+
+.. code-block::
+
+   brew install hunspell
+
+Then download the en_US dictionary from http://wordlist.aspell.net/dicts/ and unzip it to /Library/Spelling/ and install using pip:
+
+.. code-block::
+
+   python3 -m pip install generativepoetry
+
+You will also need Microsoft's core font TTF files in /Library/Fonts/.
+
+Linux
+"""""
+
+Ubuntu/Debian users should install hunspell-en-us and libhunspell-dev beforehand and then install with pip:
+
+.. code-block::
+
+   sudo apt-get install hunspell-en-us libhunspell-dev
+   python3 -m pip install generativepoetry
