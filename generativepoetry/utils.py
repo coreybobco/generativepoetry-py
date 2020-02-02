@@ -2,9 +2,10 @@ import hunspell
 import platform
 import random
 import re
+from consolemenu.screen import Screen
+from pathlib import Path
 from typing import List, TypeVar
 from wordfreq import word_frequency
-from consolemenu.screen import Screen
 
 
 def setup_spellchecker():
@@ -24,21 +25,9 @@ def setup_spellchecker():
 
 hobj = setup_spellchecker()
 str_or_list_of_str = TypeVar('str_or_list_of_str', str, List[str])
-unfitting_words = ['thew', 'iii', 'arr', 'atty', 'haj', 'pao', 'gea', 'ning', 'mor', 'mar', 'iss', 'eee', 'pls', 'fia',
-                   'gar', 'ism', 'schwa', 'sor', 'bpa', 'saba', 'ria', 'nds', 'moi', 'esc', 'sabra', 'cim', 'rha',
-                   'dist', 'nos', 'noes', 'brs', 'ltd', 'inc', 'gov', 'pis', 'lav', 'elev', 'ups', 'ms', 'srg', 'cas',
-                   'dago', 'prob', 'sro', 'ccs', 'pas', 'sab', 'cscs', 'arv', 'uhf', 'var', 'obe', 'tid', 'cpd']
-# Datamuse is built from webscraping and occasionally returns offensive and oppressive language, which I am here adding
-# to filter out. Although there is an appropriate and even critical way for humans to write poetry using some of these
-# words that might be considered edge cases (e.g. Hottentot), a stochastic text generator does not have a historical
-# sense to do that, so I have decided to exclude these.
-oppressive_words = ['beaner', 'blacks', 'coon', 'coloureds', 'dago', 'darkie', 'honky', 'hottentot',  'hottentots',
-                    'injun', 'jap', 'kaffir', 'kike', 'kkk', 'mammy', 'negro', 'negrito', 'nigga', 'nigger', 'niggers',
-                    'paki', 'pommy', 'racialist', 'swart', 'wetback', 'whitey', 'whities', 'wog', 'wop']
-unfitting_words.extend(oppressive_words)
 
 def get_input_words():
-    prompt = 'To generate a poem, type some words separated by commas or spaces, and then press enter again.\n\n'
+    prompt = 'To generate a poem, type some words separated by commas or spaces, and then press enter.\n\n'
 
     input_words = []
     while len(input_words) == 0:
@@ -123,6 +112,15 @@ def filter_word(string, spellcheck=True, exclude_words=[], word_frequency_thresh
     :param word_frequency_threshold: how frequently the word appears in the word_frequency package's corpus -- filter
                                      out word if less frequent than this threshold
     """
+    # Datamuse is built from webscraping and occasionally returns offensive and oppressive language, which I am here
+    # adding to filter out. Although there is an appropriate and even critical way for humans to write poetry using some
+    # of these words that might be considered edge cases (e.g. Hottentot), a stochastic text generator does not have
+    # a historical sense to do that, so I have decided to exclude these.
+    data_dir = Path(__file__).absolute().parent.parent / 'data'
+    with open(data_dir / 'hate_words.txt') as f:
+        unfitting_words = f.read().splitlines()
+    with open(data_dir / 'abbreviations_etc.txt') as f:
+        unfitting_words.extend(f.read().splitlines())
     exclude_words.extend(unfitting_words)  # Some words Datamuse tends to return that disruptive poetic flow
     validate_str(string)
     if len(string) < 3:
@@ -190,3 +188,18 @@ def too_similar(word1: str, comparison_val: str_or_list_of_str) -> bool:
         if word1 in too_similar_case and word2 in too_similar_case:
             return True
     return False
+
+
+def correct_a_vs_an(phrase_as_list: List[str]) -> List[str]:
+    consonants = 'bcdfghjklmnpqrstvwxyz'
+    vowels = 'aeoiu'
+    last_word = None
+    for i, word in enumerate(phrase_as_list):
+        if last_word == 'a':
+            if word[0] in vowels:
+                phrase_as_list[i - 1] = 'an'
+        elif last_word == 'an':
+            if word[0] in consonants:
+                phrase_as_list[i - 1] = 'a'
+        last_word = word
+    return phrase_as_list

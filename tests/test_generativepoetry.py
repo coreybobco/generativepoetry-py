@@ -113,6 +113,12 @@ class TestUtils(unittest.TestCase):
         correctly_sorted_words = ['catabasis', 'corncob', 'errant', 'hue', 'Catalan', 'cat', 'the']
         self.assertEqual(sort_by_rarity(unsorted_words), correctly_sorted_words)
 
+    def correct_a_vs_a_vs_an(self):
+        needs_no_correction = ['an', 'obscure' 'elephant' 'and' 'a' 'wandering' 'heliotrope', 'see', 'a', '3']
+        self.assertEqual(correct_a_vs_an(needs_no_correction), needs_no_correction)
+        needs_correction = ['a', 'obscure' 'elephant' 'and' 'an' 'wandering' 'heliotrope', 'see', 'an', '3']
+        self.assertEqual(correct_a_vs_an(needs_no_correction), needs_no_correction)
+
 
 class TestLexigen(unittest.TestCase):
     def test_rhymes(self):
@@ -496,11 +502,11 @@ class TestPDFGeneration(unittest.TestCase):
         x_coordinate = pdfgen.get_max_x_coordinate('short', 'Arial', 15)
         self.assertEqual(x_coordinate, 250)
 
-    def test_get_filename(self):
+    def test_set_filename(self):
         pdfgen = PDFGenerator()
         input_words = ['chalice', 'crime', 'coins', 'spectacular', 'dazzle', 'enigma']
-        self.assertEqual(pdfgen.get_filename(input_words), 'chalice,crime,coins,spectacular,dazzle,enigma.pdf')
-        self.assertEqual(pdfgen.get_filename(input_words, file_extension='png'),
+        self.assertEqual(pdfgen.set_filename(input_words), 'chalice,crime,coins,spectacular,dazzle,enigma.pdf')
+        self.assertEqual(pdfgen.set_filename(input_words, file_extension='png'),
                          'chalice,crime,coins,spectacular,dazzle,enigma.png')
         
 
@@ -511,7 +517,7 @@ class TestChaoticConcretePoemPDFGenerator(unittest.TestCase):
         test_input = 'chalice crime coins spectacular'
         with patch('builtins.input', return_value=test_input):
             pdfgen.generate_pdf()
-        self.assertEqual(len(pdfgen.drawn_strings), 59)
+        self.assertEqual(len(pdfgen.drawn_strings), 58)
         for ds in pdfgen.drawn_strings:
             self.assertGreaterEqual(ds.x, 15)
             self.assertLessEqual(ds.x, 440)
