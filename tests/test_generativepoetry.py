@@ -510,15 +510,15 @@ class TestPDFPNGGenerator(unittest.TestCase):
         self.assertEqual(pdfgen.set_filename(input_words, file_extension='png'),
                          'chalice,crime,coins,spectacular,dazzle,enigma.png')
 
-    def test_generate_png(self):
-        try:
-            os.remove('tests/test.png')
-        except Exception:
-            pass
-        pdfgen = PDFGenerator()
-        pdfgen.generate_png('tests/test.pdf')
-        self.assertEqual(os.path.isfile('tests/test.png'), True)
-        os.remove('tests/test.png')
+    # def test_generate_png(self):
+    #     try:
+    #         os.remove('tests/test.png')
+    #     except Exception:
+    #         pass
+    #     pdfgen = PDFGenerator()
+    #     pdfgen.generate_png('tests/test.pdf')
+    #     self.assertEqual(os.path.isfile('tests/test.png'), True)
+    #     os.remove('tests/test.png')
 
 
 class TestChaoticConcretePoemPDFGenerator(unittest.TestCase):
