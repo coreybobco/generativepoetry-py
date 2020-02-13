@@ -1,9 +1,9 @@
-import hunspell
+import pkgutil
 import platform
 import random
 import re
+import hunspell
 from consolemenu.screen import Screen
-from pathlib import Path
 from typing import List, TypeVar
 from wordfreq import word_frequency
 
@@ -116,11 +116,9 @@ def filter_word(string, spellcheck=True, exclude_words=[], word_frequency_thresh
     # adding to filter out. Although there is an appropriate and even critical way for humans to write poetry using some
     # of these words that might be considered edge cases (e.g. Hottentot), a stochastic text generator does not have
     # a historical sense to do that, so I have decided to exclude these.
-    data_dir = Path(__file__).absolute().parent.parent / 'data'
-    with open(data_dir / 'hate_words.txt') as f:
-        unfitting_words = f.read().splitlines()
-    with open(data_dir / 'abbreviations_etc.txt') as f:
-        unfitting_words.extend(f.read().splitlines())
+    unfitting_words = pkgutil.get_data('generativepoetry', 'data/hate_words.txt').decode("utf-8").splitlines()
+    unfitting_words.extend(pkgutil.get_data('generativepoetry', 'data/abbreviations_etc.txt').decode("utf-8")
+                           .splitlines())
     exclude_words.extend(unfitting_words)  # Some words Datamuse tends to return that disruptive poetic flow
     validate_str(string)
     if len(string) < 3:

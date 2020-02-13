@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.2.4]
+- Menu tweak
+
+## [0.2.3] 2020-02-12
+- Fixed bug relating to package data path
+
 ## [0.2.2] 2020-02-12
 - Added missing dependencies to setup.py
 
