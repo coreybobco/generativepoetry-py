@@ -7,7 +7,7 @@ dist: bionic
 before_install:
   - echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
   - sudo apt-get update
-  - sudo DEBIAN_FRONTEND=noninteractive apt-get install -y libhunspell-dev hunspell-en-us ttf-mscorefonts-installer popper-utils
+  - sudo DEBIAN_FRONTEND=noninteractive apt-get install -y libhunspell-dev hunspell-en-us ttf-mscorefonts-installer poppler-utils
   - sudo fc-cache
 
 install:
