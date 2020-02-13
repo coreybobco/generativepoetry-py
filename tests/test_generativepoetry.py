@@ -1,4 +1,5 @@
 import itertools
+import os
 import re
 import unittest
 from unittest.mock import patch
@@ -323,7 +324,7 @@ class TestLexigen(unittest.TestCase):
         self.assertIn(related_rare_word('comical'), result_possibilities)
 
 
-class TestMarkovWordGenerator(unittest.TestCase):
+class TestStochasticJolasticWordGenerator(unittest.TestCase):
 
     def test_random_nonrhyme(self):
         with open('tests/random_nonrhyme_possible_results.txt') as f:
@@ -331,7 +332,7 @@ class TestMarkovWordGenerator(unittest.TestCase):
             # a random lexigen function on the result of a random lexigen function (and there are already ~70 possible
             # results even if only one function is called.
             possible_results = f.read().splitlines()
-        markovgen = MarkovWordGenerator()
+        markovgen = StochasticJolasticWordGenerator()
         for i in range(6):
             result = markovgen.random_nonrhyme(['pataphysics', 'Dadaist'])
             self.assertIn(result, possible_results)
@@ -340,7 +341,7 @@ class TestMarkovWordGenerator(unittest.TestCase):
         with open('tests/random_nonrhyme_possible_results.txt') as f:
             possible_randalg_results = f.read().splitlines()
         words_for_sampling = ['fervent', 'mutants', 'dazzling', 'flying', 'saucer', 'milquetoast']
-        markovgen = MarkovWordGenerator()
+        markovgen = StochasticJolasticWordGenerator()
         input_words = ['pataphysics', 'Dadaist']
         for i in range(2):
             result = markovgen.nonlast_word_of_markov_line(input_words[i:], words_for_sampling)
@@ -351,7 +352,7 @@ class TestMarkovWordGenerator(unittest.TestCase):
     def test_last_word(self):
         with open('tests/random_nonrhyme_possible_results.txt') as f:
             possible_randalg_results = f.read().splitlines()
-        markovgen = MarkovWordGenerator()
+        markovgen = StochasticJolasticWordGenerator()
         input_words = ['pataphysics', 'Dadaist']
         for i in range(2):
             result = markovgen.last_word_of_markov_line(input_words[i:], max_length=6)
@@ -439,7 +440,7 @@ def test_poem_line_from_markov(self):
     words = line.split(' ')
     self.assertLessEqual(len(line), 40)
     self.assertLessEqual(len(words), 8)
-    markovgen = MarkovWordGenerator()
+    markovgen = StochasticJolasticWordGenerator()
     self.assertNotIn(words[-1], markovgen.common_words)
     similarity_checks = list(itertools.combinations(words, 2))
     for word_pair in similarity_checks:
@@ -463,7 +464,7 @@ def test_poem_line_from_markov(self):
         self.assertFalse(too_similar(word_pair[0], word_pair[1]))
 
 
-class TestPDFGeneration(unittest.TestCase):
+class TestPDFPNGGenerator(unittest.TestCase):
 
     def test_get_font_sizes(self):
         pdfgen = PDFGenerator()
@@ -508,7 +509,17 @@ class TestPDFGeneration(unittest.TestCase):
         self.assertEqual(pdfgen.set_filename(input_words), 'chalice,crime,coins,spectacular,dazzle,enigma.pdf')
         self.assertEqual(pdfgen.set_filename(input_words, file_extension='png'),
                          'chalice,crime,coins,spectacular,dazzle,enigma.png')
-        
+
+    def test_generate_png(self):
+        try:
+            os.remove('tests/test.png')
+        except Exception:
+            pass
+        pdfgen = PDFGenerator()
+        pdfgen.generate_png('tests/test.pdf')
+        self.assertEqual(os.path.isfile('tests/test.png'), True)
+        os.remove('tests/test.png')
+
 
 class TestChaoticConcretePoemPDFGenerator(unittest.TestCase):
 

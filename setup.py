@@ -31,7 +31,7 @@ setup(
     ],
     package_dir={'generativepoetry':
                  'generativepoetry'},
-    package_data={'generativepoetry': ['data/*.txt']},
+    package_data={'generativepoetry': ['data/hate_words.txt', 'data/abbreviations_etc.txt']},
     install_requires=requirements,
     scripts=['bin/generative-poetry-cli'],
     license="MIT",

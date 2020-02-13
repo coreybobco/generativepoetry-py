@@ -1,7 +1,7 @@
 import itertools
 from typing import List, Optional
 from .lexigen import *
-from .markov import MarkovWordGenerator
+from .markov import StochasticJolasticWordGenerator
 from .utils import too_similar
 
 
@@ -53,7 +53,7 @@ class PoemGenerator:
                                 everything on the page.
         """
         output_words, previous_word = [starting_word], starting_word
-        markovgen = MarkovWordGenerator(previous_lines=self.poem.lines)
+        markovgen = StochasticJolasticWordGenerator(previous_lines=self.poem.lines)
         for i in range(num_words - 1):
             if (i == num_words - 2) or (max_line_length and (max_line_length > 14 and
                                                              len(' '.join(output_words)) >= max_line_length - 14)):
@@ -103,11 +103,11 @@ class PoemGenerator:
             rhyme_with = last_line_last_word if i % 2 == 1 else None
             # 67.5 % chance the line starts with an input word or something relate, 32.5% with a common word
             line_starter = words_for_sampling.pop() if random.random() > .4 else \
-                    random.choice(MarkovWordGenerator.common_words)
+                    random.choice(StochasticJolasticWordGenerator.common_words)
             while i >= 1 and too_similar(line_starter, self.poem.lines[i - 1].split(' ')[0]):
                 # while statement prevents repetition of line starters
                 line_starter = words_for_sampling.pop() if random.random() > .4 else \
-                    random.choice(MarkovWordGenerator.common_words)
+                    random.choice(StochasticJolasticWordGenerator.common_words)
             line = self.poem_line_from_markov(line_starter, words_for_sampling=words_for_sampling,
                                               num_words=random.randint(min_line_words, max_line_words),
                                               rhyme_with=rhyme_with, max_line_length=max_line_length)
