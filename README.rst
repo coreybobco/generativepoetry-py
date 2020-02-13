@@ -21,12 +21,21 @@ Conceptual writing handled by code is a fairly recent emergent field, so I would
 * Leonard Richardson's `olipy <https://github.com/leonardr/olipy/>`_ is another generative text software library with similar (Oulipian) concerns to my own which experiments with Markov chains, Queneau assembly, and has other fun miscellaneous functions like swapping letters in a text with corrupt ASCII versions.
 * Riley Wong's `poetry theremin <https://github.com/rileynwong/rpi-poetry-generator>`_ transforms light sensor values into visual poems composed from words sampled from the poetry of the great modernist Mina Loy as well as Allen Ginsberg and William Carlos Williams, among others.
 
-Try now using Google Colab
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+Try now
+^^^^^^^
 
-Note: this will only work on desktop and tablet effectively because of screen-size issues. Keep this tab open to consult for reference.
+Colab (recommended for most)
+""""""""""""""""""""""""""""
+You can install this software and launch the interactive menu for creating visual poems from the following link to a Jupyter notebook hosted on Google Colab.
+
+Note: this will only work on desktop and tablet effectively because of screen-size issues. Keep this readme open to consult for reference.
 
 https://colab.research.google.com/drive/1eNTBSLMPpemYQq4n3keKCjVpw_JqY6w-
+
+On Your Computer
+""""""""""""""""
+
+Alternatively, if you install this on your own machine (see below), you can initalize the interactive menu by running the following command from a terminal/shell: generative-poetry-cli
 
 What is this?
 ^^^^^^^^^^^^^
