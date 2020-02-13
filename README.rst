@@ -26,11 +26,9 @@ Try now
 
 Colab (recommended for most)
 """"""""""""""""""""""""""""
-You can install this software and launch the interactive menu for creating visual poems from the following link to a Jupyter notebook hosted on Google Colab.
+You can install this software and launch the interactive menu for creating visual poems from the following `link <https://colab.research.google.com/drive/1eNTBSLMPpemYQq4n3keKCjVpw_JqY6w->`_ to a Jupyter notebook hosted on Google Colab.
 
 Note: this will only work on desktop and tablet effectively because of screen-size issues. Keep this readme open to consult for reference.
-
-https://colab.research.google.com/drive/1eNTBSLMPpemYQq4n3keKCjVpw_JqY6w-
 
 On Your Computer
 """"""""""""""""
