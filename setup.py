@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 __author__ = 'Corey Bobco'
 __email__ = 'corey.bobco@gmail.com'
-__version__ = '0.2.4'
+__version__ = '0.2.5'
 
 
 with open('README.rst') as readme_file:
@@ -22,7 +22,7 @@ requirements = [
 
 setup(
     name='generativepoetry',
-    version='0.2.4',
+    version='0.2.5',
     description='A library primarily for procedurally generating visual poems',
     long_description=readme,
     author="Corey Bobco",

@@ -79,7 +79,6 @@ class PDFGenerator:
         return filename
 
     def generate_png(self, input_filepath=None):
-        print('Generating image...')
         pages = convert_from_path(input_filepath)
         for page in pages:
             page.save(f'{input_filepath[:-3]}png', 'PNG')

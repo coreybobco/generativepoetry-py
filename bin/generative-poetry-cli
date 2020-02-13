@@ -12,6 +12,7 @@ def interactive_loop(poetry_generator):
     input_words = get_input_words()
     while exit_loop == False:
         poetry_generator.generate_pdf(input_words=input_words)
+        poetry_generator.generate_png(poetry_generator.pdf_filepath)
         print(reuse_words_prompt)
         if input() != 'yes':
             exit_loop = True
@@ -31,7 +32,7 @@ def chaotic_concrete_poem_action():
     ccppg = ChaoticConcretePoemPDFGenerator()
     interactive_loop(ccppg)
 
-    
+
 def character_soup_poem_action():
     csppg = CharacterSoupPoemPDFGenerator()
     csppg.generate_pdf()
@@ -42,7 +43,7 @@ def stopword_soup_poem_action():
     ssppg.generate_pdf()
 
 
-def simple_visual_poem_action():
+def visual_puzzle_poem_action():
     exit_loop = False
     pg = PoemGenerator()
     input_words = get_input_words()
@@ -59,7 +60,7 @@ markov_function_item = FunctionItem("Stochastic Jolatic (Markov) Poem (Image)", 
 chaotic_concrete_function_item = FunctionItem("Chaotic Concrete Poem (Image)", chaotic_concrete_poem_action)
 character_soup_function_item = FunctionItem("Character Soup Poem (Image)", character_soup_poem_action)
 stopword_soup_function_item = FunctionItem("Stop Word Soup Poem (Image)", stopword_soup_poem_action)
-simple_visual_function_item = FunctionItem("Visual Puzzle Poem (Terminal-Based)", simple_visual_poem_action)
+simple_visual_function_item = FunctionItem("Visual Puzzle Poem (Terminal-Based)", visual_puzzle_poem_action)
 menu.append_item(futurist_function_item)
 menu.append_item(markov_function_item)
 menu.append_item(chaotic_concrete_function_item)
