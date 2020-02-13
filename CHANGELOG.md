@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.2.2] 2020-02-12
+- Added missing dependencies to setup.py
+
 ## [0.2.1] 2020-02-12
 - Added console-menu for ease of use
 - Added filters for hate words
