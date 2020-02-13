@@ -30,3 +30,5 @@ testpypi
 *.png
 
 generative-poetry-cli.py
+files.txt
+data/*.txt

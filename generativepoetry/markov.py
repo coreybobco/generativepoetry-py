@@ -3,7 +3,7 @@ from .lexigen import *
 from .utils import *
 
 
-class MarkovWordGenerator:
+class StochasticJolasticWordGenerator:
     common_words = ["the", "with", "in", "that", "not", "a", "an", "of", "for", "as", "like", "on", 'his', 'the',
                     'your', 'my', 'their']
 
