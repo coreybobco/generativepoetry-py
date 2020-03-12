@@ -29,6 +29,7 @@ testpypi
 
 *.pdf
 *.png
+*.pyc
 
 generative-poetry-cli.py
 files.txt

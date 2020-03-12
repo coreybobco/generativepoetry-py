@@ -798,14 +798,14 @@ class TextProcessingTestCase(unittest.TestCase):
         for i, token in enumerate(tokenized_shunned_house_sample):
             if token.pos_ in ['ADJ', 'NOUN']:
                 shunned_house_pos_by_word_number[i] = token.pos_
-        shunned_house_nouns = ['sight', 'horrors', 'nuclei', 'hideousness', 'cosmos', 'fungus', 'earth', 'corpse',
+        shunned_house_nouns = ['sight', 'horrors', 'nuclei', 'hideousness', 'cosmos', 'fungus', 'earth',
                                'height', 'outlines', 'half', 'chimney', 'fireplace', 'eyes', 'wolfish', 'mocking',
                                'head', 'top', 'stream', 'mist', 'thing', 'retrospection', 'approach', 'time',
                                'cloud', 'loathsomeness', 'enveloping', 'dissolving', 'abhorrent', 'plasticity',
-                               'object', 'attention']
-        shunned_house_adjectives = ['worse', 'dreamable', 'accursed', 'unhappy', 'few', 'vaporous', 'light', 'yellow',
+                               'object', 'attention', 'light']
+        shunned_house_adjectives = ['worse', 'dreamable', 'accursed', 'unhappy', 'few', 'vaporous', 'yellow',
                                     'diseased', 'gigantic', 'vague', 'human', 'monstrous', 'rugose', 'insectoid',
-                                    'thin', 'conscious', 'damnable', 'seething', 'phosphorescent', 'fungous']
+                                    'thin', 'conscious', 'damnable', 'seething', 'phosphorescent', 'fungous', 'corpse']
         shunned_house_pos_by_word_number = {}
         # Just test swapping nouns and adjectives for now
         new_ge_sample, new_sh_sample = swap_parts_of_speech(great_expectations_sample, shunned_house_sample)
