@@ -38,7 +38,7 @@ def rhyme(input_word: str) -> Optional[str]:
 def extract_sample(word_list: list, sample_size: Optional[int] = None) -> list:
     """Returns a random sample from the word list or a shuffled copy of the word list.
 
-    :param word_list: the list of words to extract the random sample of k
+    :param word_list: the list of words to extract the random sample from
     :param sample_size: If this number is greater than the length of the word list, then just return a shuffled
                         copy of the word list.
     """
@@ -210,7 +210,7 @@ def frequently_following_word(input_word, datamuse_api_max=10) -> Optional[str]:
 
 
 def phonetically_related_words(input_val: str_or_list_of_str, sample_size=None, datamuse_api_max=50,
-                               limit_results_per_input_word: Optional[int] = None) -> list:
+                               max_results_per_input_word: Optional[int] = None) -> list:
     """Returns a list of rhymes and similar sounding words to a word or list of words.
 
     :param input_val: the word or words in relation to which this function is looking up phonetically related words
@@ -219,15 +219,16 @@ def phonetically_related_words(input_val: str_or_list_of_str, sample_size=None, 
                          will return all rhymes plus however many API results similar_sounding_words.
     :param datamuse_api_max: specifies how many API results can be returned by the API client when fetching similar
                         meaning words.
+    :Param max_results-per_input_word: limit the number of output words per input word. Useful for ensuring balance
     """
     input_words = validate_str_or_list_of_str(input_val)
     results: List[str] = []
     for word in input_words:
-        results.extend(rhymes(word, sample_size=limit_results_per_input_word))
+        results.extend(rhymes(word, sample_size=max_results_per_input_word))
         exclude_words = results.copy()
         nonrhymes = filter_word_list(similar_sounding_words(
             word, sample_size=sample_size, datamuse_api_max=datamuse_api_max), exclude_words=exclude_words)
-        results.extend(nonrhymes[:limit_results_per_input_word])
+        results.extend(nonrhymes[:max_results_per_input_word])
     results = extract_sample(results, sample_size=sample_size)
     return results
 

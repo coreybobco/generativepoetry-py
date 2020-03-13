@@ -29,6 +29,11 @@ class ParsedText:
         self.paragraphs = self.raw_text.split("\n\n")
 
     def random_sentence(self, minimum_tokens=1) -> str:
+        """Returns a random sentence from the text.
+
+        Keyword Arguments:
+            minimum_tokens; allows for sampling a sentence of a minimum NLP tokens
+        """
         num_tokens = 0
         while num_tokens < minimum_tokens:
             sentence = random.choice(self.sentences)
@@ -36,6 +41,11 @@ class ParsedText:
         return sentence
 
     def random_sentences(self, num=5, minimum_tokens=1) -> list:
+        """Returns a random sentence from the text.
+
+        Keyword Arguments:
+            minimum_tokens; allows for sampling a sentence of a minimum NLP tokens
+        """
         random_sentences = []
         while len(random_sentences) < num:
             random_sentence = self.random_sentence(minimum_tokens=minimum_tokens)
@@ -44,6 +54,11 @@ class ParsedText:
         return random_sentences
 
     def random_paragraph(self, minimum_sentences=3) -> str:
+        """Returns a random sentence from the text.
+
+        Keyword Arguments:
+            minimum_tokens; allows for sampling a sentence of a minimum NLP tokens
+        """
         num_sentences = 0
         while num_sentences < minimum_sentences:
             paragraph = random.choice(self.paragraphs)
@@ -65,6 +80,7 @@ def validate_url(url, expected_netloc=''):
 def get_internet_archive_document(url) -> str:
     """Downloads a document (book, etc.) from Internet Archive and returns it as a string. The linked document must
        have a text version. PDF text extraction is not supported at this time.
+       Returns a ParsedText instance.
     """
     validate_url(url, expected_netloc='archive.org')
     url_parts = urlsplit(url).path.split("/")
@@ -85,7 +101,9 @@ def get_internet_archive_document(url) -> str:
 
 
 def get_gutenberg_document(url) -> str:
-    """Downloads a document (book, etc.) from Project Gutenberg and returns it as a string."""
+    """Downloads a document (book, etc.) from Project Gutenberg and returns it as a string.
+
+    Returns a ParsedText instance."""
     # Get Project Gutenberg document ID from url string
     validate_url(url, expected_netloc='gutenberg.org')
     match = re.search("(?:files|ebooks|epub)\/(\d+)", urlsplit(url).path)
@@ -96,7 +114,7 @@ def get_gutenberg_document(url) -> str:
 
 
 def random_gutenberg_document(language_filter='en') -> str:
-    """Downloads a random document (book, etc.) from Project Gutenberg and returns it as a stirng.
+    """Downloads a random document (book, etc.) from Project Gutenberg and returns it as a string.
 
     Keyword arguments:
         language_filter (str) -- restrict the random document to a paritcular language (default: English)
@@ -115,6 +133,12 @@ def random_gutenberg_document(language_filter='en') -> str:
 def reconcile_replacement_word(original_word_with_ws, original_word_tag, replacement_word, replacement_word_tag) -> str:
     """Modify replacement word if needed to fix subject/verb agreement and preserve the whitespace or lack of before
     and after the original word.
+
+    Arguments:
+        original_word_with_ws (str): (str) original word with surrounding whitespace
+        original_word_tag (str): part-of-speech tag of original word
+        replacement_word (str): word that is replacing original word
+        replacement_word_tag (str):  part-of-speech tag of replacement word
     """
     # Pluralize or singularize the replacement word if we're dealing with nouns and one's plural and one's singular.
     if original_word_tag == 'NNS' and replacement_word_tag == 'NN':
@@ -175,6 +199,12 @@ def swap_parts_of_speech(text1, text2, parts_of_speech=['ADJ', 'NOUN']) -> (str,
 
 
 def markov(input: input_type, ngram_size=1, num_output_sentences=5) -> List[str]:
+    """Markov chain text generation from markovify library, supports custom n-gram length
+    :param input:
+    :param ngram_size:
+    :param num_output_sentences:
+    :return:
+    """
     if type(input) == list:
         list_of_texts = input
     elif type(input) == str:
@@ -196,6 +226,11 @@ def cutup(input, min_cutout_words=3, max_cutout_words=7) -> List[str]:
     """Simulates William S. Burroughs' and Brion Gysin's cut-up technique by separating an input text into
     non-whitespace blocks of text and then randomly grouping those into cut-outs between the minimum and maximum
     length of words.
+
+    Arguments:
+        input (str) -- input string to be cut up
+        min_cutout_words (int) -- minimum number of words in cut out chunk
+        max_cutout_words -- maximum number of words in cutout chunk
     """
     if type(input) == list:
         list_of_texts = input

@@ -1,13 +1,21 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.3.0]
+- Added random sampling from Project Gutenberg and Internet Archive
+- Added ability to swap parts of speech between two strings (e.g. swap nouns)
+- Added markov chain and cut-up functionality to scramble texts.
+
+## [0.2.4]
+- Menu tweak
+
 ## [0.2.4]
 - Menu tweak
 
 ## [0.2.3] 2020-02-12
 - Fixed bug relating to package data path
 
-## [0.2.2] 2020-02-12
+## [0.2.2] 2020-02-12nm
 - Added missing dependencies to setup.py
 
 ## [0.2.1] 2020-02-12
