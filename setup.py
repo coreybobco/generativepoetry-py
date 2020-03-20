@@ -10,14 +10,20 @@ with open('README.rst') as readme_file:
 
 requirements = [
     'console-menu==0.6.0',
+    'Gutenberg==0.8.0',
     'hunspell>=0.5.5',
+    'inflect==4.1.0',
+    'internetarchive==1.8.5',
+    'markovify==0.8.0',
     'nltk==3.4.5',
-    'pdf2image==1.11.0',
+    'pdf2image==1.12.1',
+    'rdflib==4.2.2',
     'pronouncing>=0.2.0',
-    'python-datamuse==1.2.1',
+    'python-datamuse>=1.3.0',
+    'spacy>=2.2.3',
     'reportlab>=3.5.26',
     'unittest2==1.1.0',
-    'wordfreq>=2.2.1',
+    'wordfreq>=2.2.2',
 ]
 
 setup(
