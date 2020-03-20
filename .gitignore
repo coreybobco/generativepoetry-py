@@ -19,6 +19,7 @@ develop-eggs
 .installed.cfg
 lib
 lib64
+src/
 
 # Pypi
 testpypi
@@ -28,6 +29,7 @@ testpypi
 
 *.pdf
 *.png
+*.pyc
 
 generative-poetry-cli.py
 files.txt
