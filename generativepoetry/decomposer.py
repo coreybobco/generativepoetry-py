@@ -52,6 +52,7 @@ class ParsedText:
             if random_sentence not in random_sentences:
                 random_sentences.append(random_sentence)
         return random_sentences
+<<<<<<< HEAD
 
     def random_paragraph(self, minimum_sentences=3) -> str:
         """Returns a random sentence from the text.
@@ -200,10 +201,10 @@ def swap_parts_of_speech(text1, text2, parts_of_speech=['ADJ', 'NOUN']) -> (str,
 
 def markov(input: input_type, ngram_size=1, num_output_sentences=5) -> List[str]:
     """Markov chain text generation from markovify library, supports custom n-gram length
-    :param input:
-    :param ngram_size:
-    :param num_output_sentences:
-    :return:
+
+    Keyword arguments:
+    n-gram size: determines what n-gram model to use: x where x is order-x n-gram
+    num_output_sentences: number of sentencess to output
     """
     if type(input) == list:
         list_of_texts = input
@@ -213,7 +214,6 @@ def markov(input: input_type, ngram_size=1, num_output_sentences=5) -> List[str]
     for text in list_of_texts:
         markov_models.append(markovify.Text(text, state_size=ngram_size))
     textgen = markovify.combine(markov_models)
-    sentence_count = 0
     output_sentences = []
     while len(output_sentences) < num_output_sentences:
         sentence = textgen.make_sentence()

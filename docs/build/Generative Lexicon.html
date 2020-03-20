@@ -1,0 +1,343 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>&lt;no title&gt; &#8212; Generative Poetry 0.3.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to Generative Poetry’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <span class="target" id="module-generativepoetry.lexigen"></span><dl class="function">
+<dt id="generativepoetry.lexigen.contextually_linked_word">
+<code class="sig-prename descclassname">generativepoetry.lexigen.</code><code class="sig-name descname">contextually_linked_word</code><span class="sig-paren">(</span><em class="sig-param">input_word: str</em>, <em class="sig-param">datamuse_api_max: Optional[int] = 10</em><span class="sig-paren">)</span> &#x2192; Optional[str]<a class="headerlink" href="#generativepoetry.lexigen.contextually_linked_word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a random word that frequently appear within the same document as a given word if at least one can be found
+using the Datamuse API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_word</strong> – the word which this function is looking up a contextually linked words to</p></li>
+<li><p><strong>datamuse_api_max</strong> – specifies the maximum number of results returned by the API. The API client’s results are
+always sorted from most to least similar sounding (according to a numeric score provided
+by Datamuse).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.lexigen.contextually_linked_words">
+<code class="sig-prename descclassname">generativepoetry.lexigen.</code><code class="sig-name descname">contextually_linked_words</code><span class="sig-paren">(</span><em class="sig-param">input_val: str_or_list_of_str</em>, <em class="sig-param">sample_size: Optional[int] = 6</em>, <em class="sig-param">datamuse_api_max: Optional[int] = 20</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#generativepoetry.lexigen.contextually_linked_words" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of words that frequently appear within the same document as a given word, in randomized order,
+if at least one can be found using the Datamuse API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_val</strong> – the word or words in relation to which this function is looking up contextually linked words</p></li>
+<li><p><strong>sample_size</strong> – If provided, return a random sample of this many elements. If this number is greater than the
+length of the API results, then just return a shuffled copy of the filtered API results.</p></li>
+<li><p><strong>datamuse_api_max</strong> – specifies the maximum number of results returned by the API. The API client’s results
+are always sorted from most to least frequently coappearing (according to a numeric score
+provided by Datamuse), hence by using both parameters, one can control the size of both
+the sample pool and the sample size.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.lexigen.extract_sample">
+<code class="sig-prename descclassname">generativepoetry.lexigen.</code><code class="sig-name descname">extract_sample</code><span class="sig-paren">(</span><em class="sig-param">word_list: list</em>, <em class="sig-param">sample_size: Optional[int] = None</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#generativepoetry.lexigen.extract_sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a random sample from the word list or a shuffled copy of the word list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>word_list</strong> – the list of words to extract the random sample of k</p></li>
+<li><p><strong>sample_size</strong> – If this number is greater than the length of the word list, then just return a shuffled
+copy of the word list.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.lexigen.frequently_following_word">
+<code class="sig-prename descclassname">generativepoetry.lexigen.</code><code class="sig-name descname">frequently_following_word</code><span class="sig-paren">(</span><em class="sig-param">input_word</em>, <em class="sig-param">datamuse_api_max=10</em><span class="sig-paren">)</span> &#x2192; Optional[str]<a class="headerlink" href="#generativepoetry.lexigen.frequently_following_word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a random word that frequently follows the given word if at least one can be found using the Datamuse API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_word</strong> – the word which this function is looking up a frequently following word of</p></li>
+<li><p><strong>datamuse_api_max</strong> – specifies the maximum number of results returned by the API. The API client’s results are
+always sorted from most to least similar sounding (according to a numeric score provided
+by Datamuse).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.lexigen.frequently_following_words">
+<code class="sig-prename descclassname">generativepoetry.lexigen.</code><code class="sig-name descname">frequently_following_words</code><span class="sig-paren">(</span><em class="sig-param">input_val: str_or_list_of_str</em>, <em class="sig-param">sample_size: Optional[int] = 8</em>, <em class="sig-param">datamuse_api_max: Optional[int] = None</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#generativepoetry.lexigen.frequently_following_words" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of words that frequently follow the given word, in randomized order, if at least one can be found
+using the Datamuse API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_val</strong> – the word or words in relation to which this function is looking up frequently following words</p></li>
+<li><p><strong>sample_size</strong> – If provided, return a random sample of this many elements. If this number is greater than
+the length of the API results, then just return a shuffled copy of the filtered API
+results.</p></li>
+<li><p><strong>datamuse_api_max</strong> – specifies the maximum number of results returned by the API. The API client’s
+results are always sorted from most to least frequently coappearing (according to a
+numeric score provided by Datamuse), hence by using both parameters, one can control
+the size of both the sample pool and the sample size.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.lexigen.phonetically_related_words">
+<code class="sig-prename descclassname">generativepoetry.lexigen.</code><code class="sig-name descname">phonetically_related_words</code><span class="sig-paren">(</span><em class="sig-param">input_val: str_or_list_of_str</em>, <em class="sig-param">sample_size=None</em>, <em class="sig-param">datamuse_api_max=50</em>, <em class="sig-param">limit_results_per_input_word: Optional[int] = None</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#generativepoetry.lexigen.phonetically_related_words" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of rhymes and similar sounding words to a word or list of words.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_val</strong> – the word or words in relation to which this function is looking up phonetically related words</p></li>
+<li><p><strong>sample_size</strong> – If provided, pass this argument to the functions rhymes and similar_sounding_words so that
+twice this number of elements are returned by this function. If not provided, the function
+will return all rhymes plus however many API results similar_sounding_words.</p></li>
+<li><p><strong>datamuse_api_max</strong> – specifies how many API results can be returned by the API client when fetching similar
+meaning words.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.lexigen.related_rare_word">
+<code class="sig-prename descclassname">generativepoetry.lexigen.</code><code class="sig-name descname">related_rare_word</code><span class="sig-paren">(</span><em class="sig-param">input_word: str</em>, <em class="sig-param">rare_word_population_max: int = 10</em><span class="sig-paren">)</span> &#x2192; Optional[str]<a class="headerlink" href="#generativepoetry.lexigen.related_rare_word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a random rare related word to a given word. The word can be related phonetically, contextually, or by
+meaning).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_word</strong> – the word which this function is looking up related rare words to</p></li>
+<li><p><strong>rare_word_population_max</strong> – specifies the maximum number of related words to subsample from. The rare word
+population is sorted from rarest to most common.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.lexigen.related_rare_words">
+<code class="sig-prename descclassname">generativepoetry.lexigen.</code><code class="sig-name descname">related_rare_words</code><span class="sig-paren">(</span><em class="sig-param">input_val: str_or_list_of_str</em>, <em class="sig-param">sample_size: Optional[int] = 8</em>, <em class="sig-param">rare_word_population_max: int = 20</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#generativepoetry.lexigen.related_rare_words" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a random sample of rare related words to a given word. The words can be related phonetically,
+contextually, or by meaning).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_val</strong> – the word or words in relation to which this function is looking up related rare words</p></li>
+<li><p><strong>sample_size</strong> – If provided, return a random sample of this many elements. If this number is greater than
+the length of rare word population size, then just return a shuffled copy of that.</p></li>
+<li><p><strong>rare_word_population_max</strong> – specifies the maximum number of related words to subsample from per word.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>`                                The rare word population is sorted from rarest to most common. If sample_size is</dt><dd><p>null, the max results returned by this function is 2 times this number.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.lexigen.rhyme">
+<code class="sig-prename descclassname">generativepoetry.lexigen.</code><code class="sig-name descname">rhyme</code><span class="sig-paren">(</span><em class="sig-param">input_word: str</em><span class="sig-paren">)</span> &#x2192; Optional[str]<a class="headerlink" href="#generativepoetry.lexigen.rhyme" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a random rhyme for a given word if at least one can be found using the pronouncing module (which uses
+the CMU rhyming dictionary).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>input_word</strong> – the word which this function is looking up a rhyme of</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.lexigen.rhymes">
+<code class="sig-prename descclassname">generativepoetry.lexigen.</code><code class="sig-name descname">rhymes</code><span class="sig-paren">(</span><em class="sig-param">input_val: str_or_list_of_str</em>, <em class="sig-param">sample_size=None</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#generativepoetry.lexigen.rhymes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of rhymes in randomized order for a given word if at least one can be found using the pronouncing
+module (which uses the CMU rhyming dictionary).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_val</strong> – the word or words in relation to which this function is looking up rhymes</p></li>
+<li><p><strong>size</strong> (<em>sample</em>) – If provided, return a random sample of this many elements. If this number is greater than
+the length of the rhyme list, then just return a shuffled copy of the rhyme list.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.lexigen.similar_meaning_word">
+<code class="sig-prename descclassname">generativepoetry.lexigen.</code><code class="sig-name descname">similar_meaning_word</code><span class="sig-paren">(</span><em class="sig-param">input_word: str</em>, <em class="sig-param">datamuse_api_max: Optional[int] = 10</em><span class="sig-paren">)</span> &#x2192; Optional[str]<a class="headerlink" href="#generativepoetry.lexigen.similar_meaning_word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a random similar meaning word for a given word if at least one can be found using the Datamuse API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_word</strong> – the word which this function is looking up a similar meaning words of</p></li>
+<li><p><strong>datamuse_api_max</strong> – specifies the maximum number of results returned by the API. The API client’s results are
+always sorted from most to least similar meaning (according to a numeric score provided
+by Datamuse).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.lexigen.similar_meaning_words">
+<code class="sig-prename descclassname">generativepoetry.lexigen.</code><code class="sig-name descname">similar_meaning_words</code><span class="sig-paren">(</span><em class="sig-param">input_val: str_or_list_of_str</em>, <em class="sig-param">sample_size: Optional[int] = 6</em>, <em class="sig-param">datamuse_api_max: Optional[int] = 20</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#generativepoetry.lexigen.similar_meaning_words" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of similar meaning words to a given word, in randomized order, if at least one can be found using
+Datamuse API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_val</strong> – the word or words in relation to which this function is looking up similar meaning words</p></li>
+<li><p><strong>sample_size</strong> – If provided, return a random sample of this many elements. If this number is greater than the
+length of the API results, then just return a shuffled copy of the filtered API results.</p></li>
+<li><p><strong>datamuse_api_max</strong> – specifies the maximum number of results returned by the API. The API client’s results
+are always sorted from most to least similar meaning (according to a numeric score
+provided by Datamuse), hence by using both parameters, one can control the size of both
+the sample pool and the sample size.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.lexigen.similar_sounding_word">
+<code class="sig-prename descclassname">generativepoetry.lexigen.</code><code class="sig-name descname">similar_sounding_word</code><span class="sig-paren">(</span><em class="sig-param">input_word: str</em>, <em class="sig-param">datamuse_api_max: Optional[int] = 20</em><span class="sig-paren">)</span> &#x2192; Optional[str]<a class="headerlink" href="#generativepoetry.lexigen.similar_sounding_word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a random similar sounding word for a given word if at least one can be found using the Datamuse API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_word</strong> – the word which this function is looking up a similar sounding words of</p></li>
+<li><p><strong>datamuse_api_max</strong> – specifies the maximum number of results returned by the API. The API client’s results are
+always sorted from most to least similar sounding (according to a numeric score provided
+by Datamuse).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.lexigen.similar_sounding_words">
+<code class="sig-prename descclassname">generativepoetry.lexigen.</code><code class="sig-name descname">similar_sounding_words</code><span class="sig-paren">(</span><em class="sig-param">input_val: str_or_list_of_str</em>, <em class="sig-param">sample_size: Optional[int] = 6</em>, <em class="sig-param">datamuse_api_max: Optional[int] = 50</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#generativepoetry.lexigen.similar_sounding_words" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of similar sounding words to a given word, in randomized order, if at least one can be found using
+Datamuse API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_val</strong> – the word or words in relation to which this function is looking up similar sounding words</p></li>
+<li><p><strong>sample_size</strong> – If provided, return a random sample of this many elements. If this number is greater than the
+length of the API results, then just return a shuffled copy of the filtered API results.</p></li>
+<li><p><strong>datamuse_api_max</strong> – specifies the maximum number of results returned by the API. The API client’s results
+are always sorted from most to least similar sounding (according to a numeric score
+provided by Datamuse), hence by using both parameters, one can control the size of both
+the sample pool and the sample size.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Generative Poetry</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to Generative Poetry’s documentation!</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Corey Bobco.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/Generative Lexicon.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
