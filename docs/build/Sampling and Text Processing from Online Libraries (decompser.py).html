@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Sampling and Text Processing from Online Libraries (decompser.py) &#8212; Generative Poetry 0.3.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Sampling and Text Processing from Online Libraries (decompser.py)" href="Utilities.html" />
+    <link rel="prev" title="Generative Lexicon (lexigen.py)" href="Generative Lexicon (lexigen.py).html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="sampling-and-text-processing-from-online-libraries-decompser-py">
+<h1>Sampling and Text Processing from Online Libraries (decompser.py)<a class="headerlink" href="#sampling-and-text-processing-from-online-libraries-decompser-py" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div></blockquote>
+<p>With the decomposer module, one can sample random documents (books, etc.) from Project Gutenberg and Archive.org and rearrange the texts using Markov chain algorithms, cut-up, or by swapping instances of a part of speech between two texts.</p>
+<span class="target" id="module-generativepoetry.decomposer"></span><div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="function">
+<dt id="generativepoetry.decomposer.cutup">
+<code class="sig-prename descclassname">generativepoetry.decomposer.</code><code class="sig-name descname">cutup</code><span class="sig-paren">(</span><em class="sig-param">input</em>, <em class="sig-param">min_cutout_words=3</em>, <em class="sig-param">max_cutout_words=7</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#generativepoetry.decomposer.cutup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simulates William S. Burroughs’ and Brion Gysin’s cut-up technique by separating an input text into
+non-whitespace blocks of text and then randomly grouping those into cut-outs between the minimum and maximum
+length of words.</p>
+<dl class="simple">
+<dt>Arguments:</dt><dd><p>input (str) – input string to be cut up
+min_cutout_words (int) – minimum number of words in cut out chunk
+max_cutout_words – maximum number of words in cutout chunk</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.decomposer.get_gutenberg_document">
+<code class="sig-prename descclassname">generativepoetry.decomposer.</code><code class="sig-name descname">get_gutenberg_document</code><span class="sig-paren">(</span><em class="sig-param">url</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#generativepoetry.decomposer.get_gutenberg_document" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads a document (book, etc.) from Project Gutenberg and returns it as a string.</p>
+<p>Returns a ParsedText instance.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.decomposer.get_internet_archive_document">
+<code class="sig-prename descclassname">generativepoetry.decomposer.</code><code class="sig-name descname">get_internet_archive_document</code><span class="sig-paren">(</span><em class="sig-param">url</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#generativepoetry.decomposer.get_internet_archive_document" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads a document (book, etc.) from Internet Archive and returns it as a string. The linked document must
+have a text version. PDF text extraction is not supported at this time.
+Returns a ParsedText instance.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.decomposer.markov">
+<code class="sig-prename descclassname">generativepoetry.decomposer.</code><code class="sig-name descname">markov</code><span class="sig-paren">(</span><em class="sig-param">input: input_type</em>, <em class="sig-param">ngram_size=1</em>, <em class="sig-param">num_output_sentences=5</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#generativepoetry.decomposer.markov" title="Permalink to this definition">¶</a></dt>
+<dd><p>Markov chain text generation from markovify library, supports custom n-gram length
+:param input:
+:param ngram_size:
+:param num_output_sentences:
+:return:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.decomposer.random_gutenberg_document">
+<code class="sig-prename descclassname">generativepoetry.decomposer.</code><code class="sig-name descname">random_gutenberg_document</code><span class="sig-paren">(</span><em class="sig-param">language_filter='en'</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#generativepoetry.decomposer.random_gutenberg_document" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads a random document (book, etc.) from Project Gutenberg and returns it as a string.</p>
+<dl class="simple">
+<dt>Keyword arguments:</dt><dd><p>language_filter (str) – restrict the random document to a paritcular language (default: English)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.decomposer.reconcile_replacement_word">
+<code class="sig-prename descclassname">generativepoetry.decomposer.</code><code class="sig-name descname">reconcile_replacement_word</code><span class="sig-paren">(</span><em class="sig-param">original_word_with_ws</em>, <em class="sig-param">original_word_tag</em>, <em class="sig-param">replacement_word</em>, <em class="sig-param">replacement_word_tag</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#generativepoetry.decomposer.reconcile_replacement_word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify replacement word if needed to fix subject/verb agreement and preserve the whitespace or lack of before
+and after the original word.</p>
+<dl class="simple">
+<dt>Arguments:</dt><dd><p>original_word_with_ws (str): (str) original word with surrounding whitespace
+original_word_tag (str): part-of-speech tag of original word
+replacement_word (str): word that is replacing original word
+replacement_word_tag (str):  part-of-speech tag of replacement word</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.decomposer.swap_parts_of_speech">
+<code class="sig-prename descclassname">generativepoetry.decomposer.</code><code class="sig-name descname">swap_parts_of_speech</code><span class="sig-paren">(</span><em class="sig-param">text1</em>, <em class="sig-param">text2</em>, <em class="sig-param">parts_of_speech=['ADJ'</em>, <em class="sig-param">'NOUN']) -&gt; (&lt;class 'str'&gt;</em>, <em class="sig-param">&lt;class 'str'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#generativepoetry.decomposer.swap_parts_of_speech" title="Permalink to this definition">¶</a></dt>
+<dd><p>Swap all the words of certain parts of speech from one text with those (with the same part of speech) from
+another text.</p>
+<dl class="simple">
+<dt>Keyword arguments:</dt><dd><dl class="simple">
+<dt>parts_of_speech (list) – list of parts of speech tags to swap out. Must be from the list provided by spaCy:</dt><dd><p><a class="reference external" href="https://spacy.io/api/annotation#pos-tagging">https://spacy.io/api/annotation#pos-tagging</a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.decomposer.validate_url">
+<code class="sig-prename descclassname">generativepoetry.decomposer.</code><code class="sig-name descname">validate_url</code><span class="sig-paren">(</span><em class="sig-param">url</em>, <em class="sig-param">expected_netloc=''</em><span class="sig-paren">)</span><a class="headerlink" href="#generativepoetry.decomposer.validate_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate that the provided string is indeed a URL from the anticipated source</p>
+<dl class="simple">
+<dt>Keyword arguments:</dt><dd><p>expected_netloc (str) – the expected site the URL should be from, i.e. archive.org or gutenberg.org</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The ParsedText class has several methods for random sampling.</p>
+<dl class="class">
+<dt id="generativepoetry.decomposer.ParsedText">
+<em class="property">class </em><code class="sig-prename descclassname">generativepoetry.decomposer.</code><code class="sig-name descname">ParsedText</code><span class="sig-paren">(</span><em class="sig-param">text</em><span class="sig-paren">)</span><a class="headerlink" href="#generativepoetry.decomposer.ParsedText" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="generativepoetry.decomposer.ParsedText.random_paragraph">
+<code class="sig-name descname">random_paragraph</code><span class="sig-paren">(</span><em class="sig-param">minimum_sentences=3</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#generativepoetry.decomposer.ParsedText.random_paragraph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a random sentence from the text.</p>
+<dl class="simple">
+<dt>Keyword Arguments:</dt><dd><p>minimum_tokens; allows for sampling a sentence of a minimum NLP tokens</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="generativepoetry.decomposer.ParsedText.random_sentence">
+<code class="sig-name descname">random_sentence</code><span class="sig-paren">(</span><em class="sig-param">minimum_tokens=1</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#generativepoetry.decomposer.ParsedText.random_sentence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a random sentence from the text.</p>
+<dl class="simple">
+<dt>Keyword Arguments:</dt><dd><p>minimum_tokens; allows for sampling a sentence of a minimum NLP tokens</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="generativepoetry.decomposer.ParsedText.random_sentences">
+<code class="sig-name descname">random_sentences</code><span class="sig-paren">(</span><em class="sig-param">num=5</em>, <em class="sig-param">minimum_tokens=1</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#generativepoetry.decomposer.ParsedText.random_sentences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a random sentence from the text.</p>
+<dl class="simple">
+<dt>Keyword Arguments:</dt><dd><p>minimum_tokens; allows for sampling a sentence of a minimum NLP tokens</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Generative Poetry</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Generative Lexicon (lexigen.py).html">Generative Lexicon (lexigen.py)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Sampling and Text Processing from Online Libraries (decompser.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Utilities.html">Sampling and Text Processing from Online Libraries (decompser.py)</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Generative Lexicon (lexigen.py).html" title="previous chapter">Generative Lexicon (lexigen.py)</a></li>
+      <li>Next: <a href="Utilities.html" title="next chapter">Sampling and Text Processing from Online Libraries (decompser.py)</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Corey Bobco.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/Sampling and Text Processing from Online Libraries (decompser.py).rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

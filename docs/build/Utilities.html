@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Utilities &#8212; Generative Poetry 0.3.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Sampling and Text Processing from Online Libraries (decompser.py)" href="Sampling and Text Processing from Online Libraries (decompser.py).html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="utilities">
+<h1>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div></blockquote>
+<p>These functions are common utilities used by other modules.</p>
+<span class="target" id="module-generativepoetry.utils"></span><dl class="function">
+<dt id="generativepoetry.utils.filter_word">
+<code class="sig-prename descclassname">generativepoetry.utils.</code><code class="sig-name descname">filter_word</code><span class="sig-paren">(</span><em class="sig-param">string</em>, <em class="sig-param">spellcheck=True</em>, <em class="sig-param">exclude_words=[]</em>, <em class="sig-param">word_frequency_threshold=4e-08</em><span class="sig-paren">)</span><a class="headerlink" href="#generativepoetry.utils.filter_word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter out a word if it is too short, has invalid characters, is too archaic, or (optionally) cannot be found in
+a spelling dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>string</strong> – the string to check against</p></li>
+<li><p><strong>spellcheck</strong> – Use a spelling dictionary as filter. This helps eliminate abbreviations, proper nouns, and
+Internet slang–sometimes this is not desirable. It also eliminates many short stopwords like
+‘of’ for some reason.</p></li>
+<li><p><strong>exclude_words</strong> – list of words to filter out</p></li>
+<li><p><strong>word_frequency_threshold</strong> – how frequently the word appears in the word_frequency package’s corpus – filter
+out word if less frequent than this threshold</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.utils.filter_word_list">
+<code class="sig-prename descclassname">generativepoetry.utils.</code><code class="sig-name descname">filter_word_list</code><span class="sig-paren">(</span><em class="sig-param">word_list: List[str], spellcheck: bool = True, exclude_words: List[str] = []</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#generativepoetry.utils.filter_word_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter a list of words using the filter_word method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>word_list</strong> – list of words to filter</p>
+</dd>
+</dl>
+<p>:param spellcheck (bool) – Use a spelling dictionary as filter (helps eliminate abbreviations and Internet slang).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.utils.get_random_color">
+<code class="sig-prename descclassname">generativepoetry.utils.</code><code class="sig-name descname">get_random_color</code><span class="sig-paren">(</span><em class="sig-param">threshold=0.85</em><span class="sig-paren">)</span><a class="headerlink" href="#generativepoetry.utils.get_random_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a random color – 2/3 of the rgb values must be below the threshold value</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.utils.has_invalid_characters">
+<code class="sig-prename descclassname">generativepoetry.utils.</code><code class="sig-name descname">has_invalid_characters</code><span class="sig-paren">(</span><em class="sig-param">string</em><span class="sig-paren">)</span><a class="headerlink" href="#generativepoetry.utils.has_invalid_characters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the string has unpermitted characters: whitespace, digits, and hyphens.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>string</strong> – the string to check for invalid characters in</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.utils.too_similar">
+<code class="sig-prename descclassname">generativepoetry.utils.</code><code class="sig-name descname">too_similar</code><span class="sig-paren">(</span><em class="sig-param">word1: str</em>, <em class="sig-param">comparison_val: str_or_list_of_str</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#generativepoetry.utils.too_similar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check whether or not two words are too similar to follow one another in a poem, e.g. if one is the other plus s.
+:param word1: the first word to compare
+:param comparison_val: a word or list of words to compare against</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.utils.validate_str">
+<code class="sig-prename descclassname">generativepoetry.utils.</code><code class="sig-name descname">validate_str</code><span class="sig-paren">(</span><em class="sig-param">input_val</em>, <em class="sig-param">msg='Not a string'</em><span class="sig-paren">)</span><a class="headerlink" href="#generativepoetry.utils.validate_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate the input argument by checking if it is a string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_val</strong> – the value to validate</p></li>
+<li><p><strong>msg</strong> – the message to display if a ValueError is thrown</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.utils.validate_str_list">
+<code class="sig-prename descclassname">generativepoetry.utils.</code><code class="sig-name descname">validate_str_list</code><span class="sig-paren">(</span><em class="sig-param">input_val</em>, <em class="sig-param">msg='Not a list'</em><span class="sig-paren">)</span><a class="headerlink" href="#generativepoetry.utils.validate_str_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate the input parameter by checking if it is a list of strings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_val</strong> – the value to validate</p></li>
+<li><p><strong>msg</strong> – the message to display if a ValueError is thrown</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.utils.validate_str_or_list_of_str">
+<code class="sig-prename descclassname">generativepoetry.utils.</code><code class="sig-name descname">validate_str_or_list_of_str</code><span class="sig-paren">(</span><em class="sig-param">input_val</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#generativepoetry.utils.validate_str_or_list_of_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate the input parameter by checking if it is a string or a list of strings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>input_val</strong> – the value to validate</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="generativepoetry.utils.validate_word">
+<code class="sig-prename descclassname">generativepoetry.utils.</code><code class="sig-name descname">validate_word</code><span class="sig-paren">(</span><em class="sig-param">input_val</em><span class="sig-paren">)</span><a class="headerlink" href="#generativepoetry.utils.validate_word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check whether the input argument is a word.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>input_val</strong> – the word to validate</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Generative Poetry</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Generative Lexicon (lexigen.py).html">Generative Lexicon (lexigen.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Visual Poem (PDF, PNG) Generation (pdf.py).html">Visual Poem (PDF,PNG) Generation (pdf.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Poem Text Generation (poemgen.py, jolastic.py).html">Poem Text Generation (poemgen.py, jolastic.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sampling and Text Processing from Online Libraries (decompser.py).html">Sampling and Text Processing from Online Libraries (decompser.py)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Utilities</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Sampling and Text Processing from Online Libraries (decompser.py).html" title="previous chapter">Sampling and Text Processing from Online Libraries (decompser.py)</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Corey Bobco.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/Utilities.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

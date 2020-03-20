@@ -1,0 +1,67 @@
+Welcome to Generative Poetry's documentation!
+=============================================
+
+Table of Contents
+-----------------
+.. toctree::
+   :maxdepth: 2
+
+   Generative Lexicon (lexigen.py)
+   Visual Poem (PDF, PNG) Generation (pdf.py)
+   Poem Text Generation (poemgen.py, jolastic.py)
+   Sampling and Text Processing from Online Libraries (decompser.py)
+   Utilities
+
+
+Try now
+^^^^^^^
+
+Colab (recommended for most)
+""""""""""""""""""""""""""""
+You can install this software and launch the interactive menu for creating visual poems from the following `link <https://colab.research.google.com/drive/1eNTBSLMPpemYQq4n3keKCjVpw_JqY6w->`_ to a Jupyter notebook hosted on Google Colab.
+
+Note: this will only work on desktop and tablet effectively because of screen-size issues. Keep this readme open to consult for reference.
+
+On Your Computer
+""""""""""""""""
+
+Alternatively, if you install this on your own machine (see below), you can initalize the interactive menu by running the following command from a terminal/shell: generative-poetry-cli
+
+Installation
+""""""""""""
+
+Windows
+"""""""
+
+Because this library currently relies on the Python package hunspell, which does not support Windows, use Docker to launch a Linux-based container, then use pip to install, and enter the Python interactive shell within:
+
+.. code-block::
+
+   docker run -t -d python python3 -m pip install generativepoetry && python3
+
+OSX
+"""
+
+OSX users must install hunspell beforehand:
+
+.. code-block::
+
+   brew install hunspell
+
+Then download the en_US dictionary from http://wordlist.aspell.net/dicts/ and unzip it to /Library/Spelling/ and install using pip:
+
+.. code-block::
+
+   python3 -m pip install generativepoetry
+
+You will also need Microsoft's core font TTF files in /Library/Fonts/.
+
+Linux
+"""""
+
+Ubuntu/Debian users should install hunspell-en-us and libhunspell-dev beforehand and then install with pip:
+
+.. code-block::
+
+   sudo apt-get install hunspell-en-us libhunspell-dev
+   python3 -m pip install generativepoetry
