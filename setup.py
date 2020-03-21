@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 __author__ = 'Corey Bobco'
 __email__ = 'corey.bobco@gmail.com'
-__version__ = '0.3.1'
+__version__ = '0.3.2'
 
 
 with open('README.rst') as readme_file:
@@ -28,7 +28,7 @@ requirements = [
 
 setup(
     name='generativepoetry',
-    version='0.3.1',
+    version='0.3.2',
     description='A library primarily for procedurally generating visual poems',
     long_description=readme,
     author="Corey Bobco",
@@ -37,6 +37,7 @@ setup(
     packages=[
         'generativepoetry',
     ],
+    dependency_links = ['https://github.com/coreybobco/gutenberg_cleaner@master#egg=gutenberg_cleaner'],
     package_dir={'generativepoetry':
                  'generativepoetry'},
     package_data={'generativepoetry': ['data/hate_words.txt', 'data/abbreviations_etc.txt']},

@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.3.2] 2020-03-21
+- Fixed dependency issue
+
 ## [0.3.0] 2020-03-21
 - Added random sampling from Project Gutenberg and Internet Archive
 - Added ability to swap parts of speech between two strings (e.g. swap nouns)
