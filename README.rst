@@ -342,6 +342,6 @@ Ubuntu/Debian users should install hunspell-en-us and libhunspell-dev beforehand
 
 
 More Documentation
-""""""""""""""""""
+^^^^^^^^^^^^^^^^^^
 
 Read documentation of library's classes & functions `here <https://generativepoetry.readthedocs.io>`_ .

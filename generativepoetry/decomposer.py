@@ -52,7 +52,6 @@ class ParsedText:
             if random_sentence not in random_sentences:
                 random_sentences.append(random_sentence)
         return random_sentences
-<<<<<<< HEAD
 
     def random_paragraph(self, minimum_sentences=3) -> str:
         """Returns a random sentence from the text.
