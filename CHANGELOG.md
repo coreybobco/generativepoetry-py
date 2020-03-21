@@ -1,15 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [0.3.0]
+## [0.3.0] 2020-03-21
 - Added random sampling from Project Gutenberg and Internet Archive
 - Added ability to swap parts of speech between two strings (e.g. swap nouns)
 - Added markov chain and cut-up functionality to scramble texts.
 
-## [0.2.4]
+## [0.2.4] 2020-02-12
 - Menu tweak
 
-## [0.2.4]
+## [0.2.4] 2020-02-12
 - Menu tweak
 
 ## [0.2.3] 2020-02-12
