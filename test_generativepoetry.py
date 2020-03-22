@@ -887,8 +887,8 @@ class TextProcessingTestCase(unittest.TestCase):
         cutouts = cutup([burroughs_sample1, burroughs_sample2])
         print("\nWilliam S. Burroughs Computer Cut-Up #3:\n" + " ".join(cutouts))
         for cutout in cutouts:
-            if not(3 <= len(cutout.split()) <= 7 or cutout.split()[-1] == burroughs_sample1.split()[-1] or cutout == burroughs_sample2.split()[-1]):
-                import ipdb; ipdb.set_trace()
+            # if not(3 <= len(cutout.split()) <= 7 or cutout.split()[-1] == burroughs_sample1.split()[-1] or cutout == burroughs_sample2.split()[-1]):
+            #     import ipdb; ipdb.set_trace()
             self.assertTrue(len(cutout.split()) <= 7 or cutout.split()[-1] == burroughs_sample1.split()[-1] or
                             cutout == burroughs_sample2.split()[-1])
             self.assertTrue(cutout in burroughs_sample1 or cutout in burroughs_sample2)
