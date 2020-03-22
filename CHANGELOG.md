@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [9.3.3] 2020-03-22
+- Markov chain now only begins sentences with words that began sentences.
+
 ## [0.3.2] 2020-03-21
 - Fixed dependency issue
 
