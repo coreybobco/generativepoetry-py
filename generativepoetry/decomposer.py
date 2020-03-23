@@ -213,9 +213,8 @@ def markov(input: input_type, ngram_size=1, num_output_sentences=5) -> List[str]
         markov_models.append(markovify.Text(text, state_size=ngram_size))
     textgen = markovify.combine(markov_models)
     output_sentences = []
-    sentence_starters = [sentence.split(' ')[0] for sentence in sentences]
     while len(output_sentences) < num_output_sentences:
-        sentence = textgen.make_sentence_with_start()
+        sentence = textgen.make_sentence()
         if isinstance(sentence, str):
             output_sentences.append(sentence)
     return output_sentences
